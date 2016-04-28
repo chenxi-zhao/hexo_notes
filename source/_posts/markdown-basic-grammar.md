@@ -70,6 +70,7 @@ class SomeClass:
     pass
 >>> message = '''interpreter
 ... prompt'''
+
 ```
 
 ### <font color="red">链接</font>
