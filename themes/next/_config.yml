@@ -133,9 +133,14 @@ social_icons:
   enable: true
   # Icon Mappings.
   # KeyMapsToSocalItemKey: NameOfTheIconFromFontAwesome
-  GitHub: github
+  github: github
   #zhihu: twitter
-  Weibo: weibo
+  weibo: weibo
+
+  # title
+# links_title: Links
+# links:
+  # 李辉: http://macshuo.com/
 
 
 # Sidebar Avatar
