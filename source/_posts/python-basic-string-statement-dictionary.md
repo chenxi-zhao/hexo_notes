@@ -22,15 +22,15 @@ print "Updated String :- ", var1[:6] + 'Python'
 
 ### Python转义字符
 ![][python转义]
-[python转义]:http://thumb.115.com/thumb/A/91/F1/A91F1997B5A4FA1BA36EA1811AF29F3B6D464FBA_800_800?s=pYRt30xq3GlUB1CY1JwEEw&t=1437494400&sync=1
+[python转义]:http://static.tmaczhao.cn/images/python/python%E8%BD%AC%E4%B9%89.png
 
 ### Python字符串运算符
 ![][Python字符串运算符]
-[Python字符串运算符]:http://thumb.115.com/thumb/9/EE/59/9EE592F80ECBD2007D8EF76592D9F2A21EB51B42_800_800?s=D-n5X26iqcu7bc11_1SAPg&t=1437494400&sync=1
+[Python字符串运算符]:http://static.tmaczhao.cn/images/python/Python%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BF%90%E7%AE%97%E7%AC%A6.png
 
 ### Python字符串格式化
 ![][Python字符串格式化]
-[Python字符串格式化]:http://thumb.115.com/thumb/9/F7/25/9F72546AD3ABBFAE940C204EB11F4EE4646C012D_800_800?s=wObjwXASo5Za_HFVvmZq0g&t=1437494400&sync=1
+[Python字符串格式化]:http://static.tmaczhao.cn/resource/python/Python%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%A0%BC%E5%BC%8F%E5%8C%96.png
 
 ### Python三引号（triple quotes）
 python中三引号可以将复杂的字符串进行复制:

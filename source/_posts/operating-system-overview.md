@@ -1,6 +1,6 @@
 ---
 title: 操作系统知识点概述
-date: 2016-04-27 10:38:09
+date: 2016-01-27 10:38:09
 categories: operating_system
 tags: [operating_system, 操作系统]
 ---
