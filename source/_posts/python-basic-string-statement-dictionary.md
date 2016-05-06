@@ -30,7 +30,7 @@ print "Updated String :- ", var1[:6] + 'Python'
 
 ### Python字符串格式化
 ![][Python字符串格式化]
-[Python字符串格式化]:http://static.tmaczhao.cn/resource/python/Python%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%A0%BC%E5%BC%8F%E5%8C%96.png
+[Python字符串格式化]:http://static.tmaczhao.cn/images/python/Python%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%A0%BC%E5%BC%8F%E5%8C%96.png
 
 ### Python三引号（triple quotes）
 python中三引号可以将复杂的字符串进行复制:
