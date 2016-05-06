@@ -1,5 +1,5 @@
 ---
-title: python基础语法—字符串&语句&集合
+title: Python基础语法—字符串&语句&集合
 date: 2016-04-27 09:54:33
 categories: python
 tags: [python, 集合, 基础语法,字符串]

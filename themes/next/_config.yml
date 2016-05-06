@@ -104,7 +104,7 @@ font:
   # Font settings for <code> and code blocks.
   code:
     external: true
-    family: 'PT Mono'
+    family: Consolas
 
 
 

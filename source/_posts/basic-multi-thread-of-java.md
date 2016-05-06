@@ -1,5 +1,5 @@
 ---
-title: java多线程基础
+title: Java多线程基础
 date: 2016-05-06 15:11:49
 categories: java-multi-thread
 tags: [java, 多线程]

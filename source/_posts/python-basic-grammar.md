@@ -1,5 +1,5 @@
 ---
-title: python基础语法—基础数据类型
+title: Python基础语法—基础数据类型
 date: 2016-04-27 09:40:29
 categories: python
 tags: [python, grammar, 基础语法]
