@@ -6,6 +6,8 @@ ReadWriteLock是读写锁。它维护了一对相关的锁-“读取锁”和“
 ReadWriteLock是一个接口。ReentrantReadWriteLock是它的实现类，
 **ReentrantReadWriteLock包括子类ReadLock和WriteLock。**
 
+<!-- more -->
+
 ### ReadWriteLock函数列表
 ```java
 // 返回用于读取操作的锁。
