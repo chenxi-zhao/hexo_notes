@@ -2,7 +2,7 @@ Java里面线程池的顶级接口是Executor，但是严格意义上讲Executor
 
 下面这张图完整描述了线程池的类体系结构。
 
-![](http://static.tmaczhao.cn/images/java_multi_thread/CLH-MCS-SpinLock.png)
+![](http://static.tmaczhao.cn/images/java_multi_thread/Executor-Lifecycle_thumb_1.png)
 
 ### 接口详解
 #### Executor
