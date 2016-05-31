@@ -1,5 +1,5 @@
 ---
-title: 大型网站技术架构读书笔记--概述(1)
+title: 大型网站技术架构读书笔记--概述
 date: 2016-04-27 13:47:38
 categories: website_architecture
 tags: [架构,笔记]
