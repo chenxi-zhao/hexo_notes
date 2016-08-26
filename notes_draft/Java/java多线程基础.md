@@ -42,7 +42,7 @@ class MyThread implements Runnable{
 
 ### Thread中的start和run
 >start():它的作用是启动一个新线程，新线程会执行相应的run()方法。start()不能被重复调用。
-run(): run()等同于可重复调用的普通方法。单独调用run()，会在当前线程中执行run()方法，但是 并不会启动新线程！
+run(): run()等同于可重复调用的普通方法。单独调用run()，会在当前线程中执行run()方法，但是并不会启动新线程！
 
 start通过**`native void start0()`**方法启动一个新线程来调用run()方法，run()方法中直接调用Runable对象的run()方法，不建立新线程，Thread源码（1.7）如下
 ```java

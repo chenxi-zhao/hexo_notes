@@ -16,6 +16,8 @@ categories: database
 
 第三层，存储引擎层，不光做存储和提取数据，而且针对特殊数据引擎还要做事务处理。
 
+<!-- more -->
+
 ### 并发控制
 共享锁（shared lock, 读锁）和排它锁（exclusive lock, 写锁）。
 >每种MySQL数据库都有自己的锁策略和锁粒度。（商用数据库多为行级锁， row level lock）
