@@ -156,7 +156,7 @@ long incrementAndGet(T obj)
 // 最后将此更新器管理的给定对象的字段设置为给定更新值。
 abstract void lazySet(T obj, long newValue)
 // 为对象创建并返回一个具有给定字段的更新器。
-static <U> AtomicLongFieldUpdater<U> newUpdater(Class<U> tclass, String fieldName)
+static AtomicLongFieldUpdater<U> newUpdater(Class<U> tclass, String fieldName)
 // 将此更新器管理的给定对象的字段设置为给定更新值。
 abstract void set(T obj, long newValue)
 // 如果当前值 == 预期值，则以原子方式将此更新器所管理的给定对象的字段设置为给定的更新值。
