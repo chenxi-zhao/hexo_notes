@@ -28,6 +28,8 @@
 -XX:-TraceClassUnloading：跟踪类的卸载信息
 -XX:-TraceLoaderConstraints：跟踪类加载器约束的相关信息
 
+-server -XX:+DoEscapeAnalysis -XX:+EliminateLocks: 逃逸分析，锁消除
+
 -Xloggc:../logs/gc.log  日志文件的输出路径
 -XX:NumberOfGClogFiles=1  GC日志文件的循环数目 (Since Java)
 -XX:GCLogFileSize=1M  控制GC日志文件的大小 (Since Java)
@@ -37,45 +39,53 @@
 只要设置-XX:+PrintGCDetails 就会自动带上-verbose:gc和-XX:+PrintGC
 
 
-### JVM堆分配参数
--Xms：初始堆大小，默认为物理内存的1/64(<1GB)；默认(MinHeapFreeRatio参数可以调整)空余堆内存小于40%时，JVM就会增大堆直到-Xmx的最大限制
--Xmx：最大堆大小，默认(MaxHeapFreeRatio参数可以调整)空余堆内存大于70%时，JVM会减少堆直到-Xms的最小限制
+### JVM内存分配参数
+#### 堆分配
+-Xms：初始堆大小，默认为物理内存的1/64（小于1GB）；默认（MinHeapFreeRatio参数可以调整）GC后空余堆内存比例小于40%时，则放大堆内存的预估最大值，但不超过固定最大值。
 
--Xmn：新生代的内存空间大小，注意：此处的大小是（eden+ 2 survivor space)。与jmap -heap中显示的New gen是不同的。整个堆大小=新生代大小+老生代大小+永久代大小。在保证堆大小不变的情况下，增大新生代后，将会减小老生代大小。此值对系统性能影响较大，Sun官方推荐配置为整个堆的3/8。
+-Xmx：最大堆大小，默认(MaxHeapFreeRatio参数可以调整)GC后空余堆内存比例大于70%时，JVM会减少堆直到-Xms的最小限制
+
+-Xmn：新生代的内存空间大小，注意：此处的大小是（eden+ 2 survivor space)。与jmap -heap中显示的New gen是不同的。整个堆大小=新生代大小+老生代大小。在保证堆大小不变的情况下，增大新生代后，将会减小老生代大小。此值对系统性能影响较大，Sun官方推荐配置为整个堆的3/8。
 
 -XX:NewSize/-XX:MaxNewSize
 
--XX:NewRation：新生代（Eden+2*survivor）和老年代（不包括永久代）的比值，4则表示新生代：老年代=1:4
+-XX:NewRation：老年代（不包括永久代）和新生代（Eden+2*survivor）的比值，4则表示新生代：老年代=1:4
 
 -XX:SurvivorRatio：新生代中Eden区域与Survivor区域的容量比值，默认值为8。两个Survivor区与一个Eden区的比值为2:8，一个Survivor区占整个年轻代的1/10。
 
+-XX:YoungGenerationSizeIncrement=（Y）：YoungGen分配新内存时的增长比例，默认是20%
+-XX:TenuredGenerationSizeIncrement=（Y）：TenuredGen空间分配新内存时的增长比例，默认是20%
+-XX:AdaptiveSizeDecrementScaleFactor=（Y）：空间缩小比例，如果空间增长比例是X，那么缩小比例是X/D
+
 -Xss：每个线程的堆栈大小。JDK5以后每个线程堆栈大小为1M，以前每个线程堆栈大小为256K。应根据应用的线程所需内存大小进行适当调整。在相同物理内存下，减小这个值能生成更多的线程。但是操作系统对一个进程内的线程数还是有限制的，不能无限生成，经验值在3000~5000左右。一般小的应用，如果栈不是很深，应该是128k够用的，大的应用建议使用256k。这个选项对性能影响比较大，需要严格的测试。和threadstacksize选项解释很类似,官方文档似乎没有解释,在论坛中有这样一句话:"-Xss is translated in a VM flag named ThreadStackSize”一般设置这个值就可以了。
 
+#### 永久代分配
 -XX:PermSize：设置永久代(perm gen)初始值。默认值为物理内存的1/64。
 -XX:MaxPermSize：设置持久代最大值。物理内存的1/4。
 >jdk1.8中取消了永久代，取而代之的是metaspace，元空间存储在native memory即本地内存中
 
+#### GC参数配置
 -XX:-DisableExplicitGC：禁止调用System.gc()，但JVM的gc仍然有效。
 -Xnoclassgc：禁用垃圾回收
 -XX:+ScavengeBeforeFullGC：新生代GC优先于Full GC执行。
 -XX:+CollectGen0First：FullGC时是否先YGC，默认false
+-XX:TargetSurvivorRatio=90：允许90%的Survivor空间被占用（默认为50%）。提高对于Survivor的使用率—超过就会尝试垃圾回收。
+-XX:PretenureSizeThreshold：对象超过多大是直接在旧生代分配默认为0，单位字节，新生代采用Parallel Scavenge GC时无效，另一种直接在旧生代分配的情况是大的数组对象，且数组中无外部引用对象。
+
+-XX:MaxTenuringThreshold：垃圾最大年龄，如果设置为0的话，则年轻代对象不经过Survivor区，直接进入年老代。对于年老代比较多的应用，可以提高效率。如果将此值设置为一个较大值，则年轻代对象会在Survivor区进行多次复制，这样可以增加对象再年轻代的存活 时间，增加在年轻代即被回收的概率该参数只有在串行GC时才有效。
 
 -XX:LargePageSizeInBytes：内存页的大小不可设置过大，会影响Perm的大小（128M）
 -XX:TLABWasteTargetPercent：TLAB占eden区的百分比，默认1%
 
 -XX:+AggressiveOpts：加快编译
 -XX:+MaxFDLimit：最大化文件描述符的数量限制。
--XX:+UseBiasedLocking：锁机制的性能改善
--XX:+UseFastAccessorMethods：原始类型的快速优化
+-XX:+UseBiasedLocking：锁机制的性能改善，偏向锁。默认启用，激烈竞争的时候会增加系统负担
+-XX:+UseBiasedLockingStartupDelay=0：jvm启动时启用偏向锁。
+
+-XX:+UseFastAccessorMethods：启用原始类型的getter方法优化
 -XX:+UseThreadPriorities：启用本地线程优先级API，即使 java.lang.Thread.setPriority() 生效，反之无效。
 -XX:SoftRefLRUPolicyMSPerMB=0：“软引用”的对象在最后一次被访问后能存活0毫秒（默认为1秒）。
--XX:TargetSurvivorRatio=90：允许90%的Survivor空间被占用（默认为50%）。提高对于Survivor的使用率—超过就会尝试垃圾回收。
-
--XX:PretenureSizeThreshold  对象超过多大是直接在旧生代分配默认为0，单位字节，新生代采用Parallel Scavenge GC时无效
-另一种直接在旧生代分配的情况是大的数组对象，且数组中无外部引用对象。
-
--XX:MaxTenuringThreshold：垃圾最大年龄，如果设置为0的话，则年轻代对象不经过Survivor区，直接进入年老代。对于年老代比较多的应用，可以提高效率。如果将此值设置为一个较大值，则年轻代对象会在Survivor区进行多次复制，这样可以增加对象再年轻代的存活 时间，增加在年轻代即被回收的概率该参数只有在串行GC时才有效。
-
+-XX:+StringCache：默认启用。启用字符串缓存。
 
 ### 串行收集器（Serial/Serial Old）
 >-XX:+UseSerialGC
