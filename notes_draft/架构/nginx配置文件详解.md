@@ -103,11 +103,31 @@ http{
     # 有效期内文件最少使用次数
     open_file_cache_min_uses 2;
 
-    upstream test.com {
-        #upstream的负载均衡，weight是权重，可以根据机器配置定义权重。weigth参数表示权值，权值越高被分配到的几率越大。
-        server 192.168.80.121:80 weight=3;
-        server 192.168.80.122:80 weight=2;
-        server 192.168.80.123:80 weight=3;
+    # upstream 配置一组后端服务器，
+    # 请求转发到upstream后，nginx按策略将请求指派出某一服务器
+    # 即配置用于负载均衡的服务器群信息
+    upstream backends {
+        #均衡策略
+        #none 轮询（权重由weight决定）
+        #ip_hash
+        #fair
+        #url_hash
+
+        server 192.168.1.62:8080;
+        server 192.168.1.63;
+
+        # weight:权重，值越高负载越大；
+        # server 192.168.1.64 weight=5;
+
+        # backup：备份机，只有非备份机都挂掉了才启用；
+        server 192.168.1.64 backup;
+
+        # down: 停机标志，不会被访问
+        server 192.168.1.65 down;
+
+        # max_fails:达到指定次数认为服务器挂掉；
+        # fail_timeout:挂掉之后过多久再去测试是否已恢复
+        server 192.168.1.66 max_fails=2 fail_timeout=60s;
     }
 
     #虚拟主机的配置
