@@ -92,7 +92,23 @@ http{
     gzip_types text/plain application/x-javascript text/css application/xml;
     gzip_vary on;
 
-    #limit_zone crawler $binary_remote_addr 10m; #开启限制IP连接数的时候需要使用
+    # ngx_http_limit_conn_module模块设置
+    # limit_conn_zone key zone=name:size; # 配置段: http
+    # limit_conn_zone $binary_remote_addr zone=addr:10m; #开启限制IP连接数的时候需要使用
+    # limit_conn addr 1;
+    # limit_conn_log_level info | notice | warn | error; # Default:limit_conn_log_level error;
+    # limit_conn_status code; # Default:limit_conn_status 503;
+
+    # ngx_http_limit_req_module模块设置
+    # 语法：limit_req_zone key zone=name:size rate=rate; # 配置段: http
+    # limit_req_zone $binary_remote_addr zone=one:10m rate=1r/s;
+    # 语法（写在location里边）：limit_req zone=name [burst=number] [nodelay];
+    # limit_req zone=one burst=5; # 配置段: http, server, location
+    # 语法: limit_req_log_level info | notice | warn | error;
+    # 默认值: limit_req_log_level error; # 配置段: http, server, location
+    # 语法: limit_req_status code;
+    # 默认值: limit_req_status 503;
+    # 配置段: http, server, location
 
 
     # 静态文件缓存
