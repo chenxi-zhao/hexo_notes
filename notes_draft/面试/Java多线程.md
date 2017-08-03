@@ -32,7 +32,7 @@
 
 15. HashMap 是否线程安全，为何不安全。 ConcurrentHashMap，线程安全，为何安全。底层实现是怎么样的。
 
-16. J.U.C下的常见类的使用。 ThreadPool的深入考察； BlockingQueue的使用。（take，poll的区别，put，offer的区别）；原子类的实现。
+16. J.U.C下的常见类的使用。ThreadPool的深入考察；BlockingQueue的使用。（take，poll的区别，put，offer的区别）；原子类的实现。
 
 17. 简单介绍下多线程的情况，从建立一个线程开始。然后怎么控制同步过程，多线程常用的方法和结构
 

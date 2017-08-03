@@ -1,6 +1,8 @@
 #### String类为什么是final的
 String不可变性，String类用final修饰，但可以通过反射方式改变String中的值。String不变性主要是为了线程安全，String常量池的使用可以节省内存空间，提高效率。
 
+在jdk6当调用substring方法的时候，会创建一个新的string对象，但是这个string的值仍然指向堆中的同一个字符数组。这两个对象中只有count和offset的值是不同的。如果你有一个很长很长的字符串，但是当你使用substring进行切割的时候你只需要很短的一段。但是你却引用了整个字符串（因为这个非常长的字符数组一直在被引用，所以无法被回收，就可能导致内存泄露）。在jdk7中，substring方法会在堆内存中创建一个新的数组。
+
 
 #### HashMap的源码，实现原理，底层结构
 HashMap基于哈希表的Map接口的实现。此实现提供所有可选的映射操作，并允许使用null值和null键。（除了不同步和允许使用null之外，HashMap类与Hashtable大致相同。）null值hashcode为0，所以以null为键的键值对存储在table[0]。
@@ -51,7 +53,7 @@ class.forName和classLoader都可用来对类进行加载。前者除了将类�
 
 #### Java7、Java8的新特性
 [java5、java6、java7、java8的新特性][1]
-[1]:[http://blog.csdn.net/qq_30641447/article/details/49853067
+[1]:[http://blog.csdn.net/qq_30641447/article/details/49853067]
 
 
 #### Java数组和链表两种结构的操作效率，在哪些情况下(从开头开始，从结尾开始，从中间开始)，哪些操作(插入，查找，删除)的效率高
@@ -130,3 +132,73 @@ JDK1.8中在冲突节点长度超过8时将链表转为红黑树存储提高性�
 
 
 #### hashCode() 与 equals() 生成算法、方法怎么重写
+HashMap先根据hashcode进行分桶，在判断equals方式是否相等。
+>- 如果两个对象相等，那么他们一定有相同的哈希值（hash code）。
+- 如果两个对象的哈希值相等，那么这两个对象有可能相等也有可能不相等。（需要再通过equals来判断）
+
+#### Java中的length和length()
+- 数组是一个容器对象(http://blog.csdn.net/zhangjg_blog/article/details/16116613)，其中包含固定数量的同一类型的值。一旦数组被创建，他的长度就是固定的了。数组的长度可以作为final实例变量的长度。因此，长度可以被视为一个数组的属性。
+
+- String背后的数据结构是一个char数组,所以没有必要来定义一个不必要的属性（因为该属性在char数值中已经提供了）。和C不同的是，Java中char的数组并不等于字符串，虽然String的内部机制是char数组实现的。
+
+
+#### Java中的Switch对整型、字符型、字符串型的具体实现细节
+- switch对int的判断是直接比较整数的值。
+- 对char类型进行比较的时候，实际上比较的是ascii码，编译器会把char型变量转换成对应的int型变量。
+- 字符串的switch是通过equals()和hashCode()方法来实现的
+
+>其实swich只支持一种数据类型，那就是整型，其他数据类型都是转换成整型之后在使用switch的。
+
+
+#### Java的各种打包方式（JAR/WAR/EAR/CAR）
+##### JAR (Java Archive file)
+>包含内容：class、properties文件，是文件封装的最小单元；包含Java类的普通库、资源（resources）、辅助文件（auxiliary files）等
+部署文件 ： application-client.xml
+容器： 应用服务器（application servers）
+级别：小
+
+
+##### WAR (Web Archive file)
+>包含内容：Servlet、JSP页面、JSP标记库、JAR库文件、HTML/XML文档和其他公用资源文件，如图片、音频文件等
+部署文件 ： web.xml
+容器： 小型服务程序容器（servlet containers）
+级别：中
+
+##### EAR（Enterprise Archive file）
+>包含内容：除了包含JAR、WAR以外，还包括EJB组件
+部署文件 ： application.xml
+容器： EJB容器（EJB containers）
+级别： 大
+
+##### car包(webx特有的打包方式)
+>传统的web工程就是将工程打包成一个war包部署到web服务器上就可以运行web服务。
+Webx工程是以car包为单位，一个工程可以打包为一个car包，多个car包可以打包成一个war包部署到web服务器上。
+这样做的好处不言而喻就是可以将一个大工程分解为多个小工程独立去开发部署。
+
+
+#### Java中Comparable和Comparator
+- 同一个类的两个对象之间要想比较，对应的类就要实现Comparable接口，并实现compareTo()方法
+
+- 在一些情况下，你不希望修改一个原有的类，但是你还想让他可以比较，Comparator接口可以实现这样的功能。通过使用Comparator接口，你可以针对其中特定的属性/字段来进行比较。比如，当我们要比较两个人的时候，我可能通过年龄比较、也可能通过身高比较。这种情况使用Comparable就无法实现（因为要实现Comparable接口，其中的compareTo方法只能有一个，无法实现多种比较）。
+
+>Java中的Collections和Arrays中都包含排序的sort方法，该方法可以接收一个Comparator的实例（比较器）来进行排序。
+
+
+#### 组合和集成的优缺点比较
+|组合关系 | 继承关系 |
+|优点：不破坏封装，整体类与局部类间松耦合，彼此相对独立|缺点：破坏封装，子类与父类之间紧密耦合，子类依赖父类的实现，子类缺乏独立性|
+|优点：具有较好的可扩展性  | 缺点：支持扩展，但是往往以增加系统结构的复杂度为代价 |
+|优点：支持动态组合。在运行时，整体对象可以选择不同类型的局部对象 |   缺点：不支持动态继承。在运行时，子类无法选择不同的父类 |
+|优点：整体类可以对局部类进行包装，封装局部类的接口，提供新的接口  |  缺点：子类不能改变父类的接口 |
+|缺点：整体类不能自动获得和局部类同样的接口  |  优点：子类能自动继承父类的接口 |
+|缺点：创建整体类的对象时，需要创建所有局部类的对象  | 优点：创建子类的对象时，无须创建父类的对象 |
+
+#### 类型擦除
+>类型擦除指的是通过类型参数合并，将泛型类型实例关联到同一份字节码上。编译器只为泛型类型生成一份字节码，并将其实例关联到这份字节码上。
+
+1. 虚拟机中没有泛型，只有普通类和普通方法,所有泛型类的类型参数在编译时都会被擦除,泛型类并没有自己独有的Class类对象。比如并不存在List<String>.class或是List<Integer>.class，而只有List.class。
+2. 创建泛型对象时请指明类型，让编译器尽早的做参数检查（Effective Java，第23条：请不要在新代码中使用原生态类型）
+3. 不要忽略编译器的警告信息，那意味着潜在的ClassCastException等着你。
+4. 静态变量是被泛型类的所有实例所共享的。对于声明为MyClass<T>的类，访问其中的静态变量的方法仍然是 MyClass.myStaticVar。不管是通过new MyClass<String>还是new MyClass<Integer>创建的对象，都是共享一个静态变量。
+5.泛型的类型参数不能用在Java异常处理的catch语句中。因为异常处理是由JVM在运行时刻来进行的。由于类型信息被擦除，JVM是无法区分两个异常类型MyException<String>和MyException<Integer>的。对于JVM来说，它们都是MyException类型的。也就无法执行与异常对应的catch语句。
+

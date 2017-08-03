@@ -116,7 +116,21 @@ procs -----------memory---------- ---swap-- -----io---- --system-- -----cpu-----
 ### Java
 #### jps  列出java进程，类似于ps命令
 #### jinfo 查询设置jvm参数值
-#### jmap  生成Java应用程序的堆快照和对象的统计信息
+#### jmap  生成Java应用程序的堆快照和对象的统计信息 (jmap -dump:format=b,file=<fileName>)
 #### jstack  打印线程dump
+#### jstat
+```
+jstat -<option> [-t] [-h<lines>] <vmid> [<interval> [<count>]]
+```
+参数解释：
+- Option — 选项，我们一般使用 -gcutil 查看gc情况
+- vmid — VM的进程号，即当前运行的java进程号
+- interval– 间隔时间，单位为秒或者毫秒
+- count — 打印次数，如果缺省则打印无数次
+参数interval和count代表查询间隔和次数，如果省略这两个参数，说明只查询一次。假设需要每250毫秒查询一次进程5828垃圾收集状况，一共查询5次，那命令行如下：
+<jstat -gcutil 5828 250 5>查看进程5828的GC情况每250ms输出一次，总共输出5次
+[更多][jstat]
+[jstat]:[http://www.hollischuang.com/archives/481]
+
 #### jconsole 图形化监控工具
 #### jvisualvm
