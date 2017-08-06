@@ -59,7 +59,7 @@ void unlock()
 
 ### ReentrantLock数据结构
 ReentrantLock的UML类图
-![](http://images.cnitblog.com/blog/497634/201401/271417467039316.jpg)
+![](http://static.tmaczhao.cn/images/0dc838691dcbb1cc7880fcf152467314.jpg)
 从图中可以看出：
 - ReentrantLock实现了Lock接口。
 - ReentrantLock与sync是组合关系。ReentrantLock中，包含了Sync对象；而且，Sync是AQS的子类；更重要的是，Sync有两个子类FairSync(公平锁)和NonFairSync(非公平锁)(都在ReentrantLock中)。ReentrantLock是一个独占锁，至于它到底是公平锁还是非公平锁，就取决于sync对象是"FairSync的实例"还是"NonFairSync的实例"。

@@ -30,7 +30,7 @@ void reset()
 
 ### CyclicBarrier数据结构
 CyclicBarrier的UML类图如下：
-![](http://images.cnitblog.com/blog/497634/201401/271455098594619.jpg)
+![](http://static.tmaczhao.cn/images/4f97fc32b879d97c01e13692fd99c99c.jpg)
 CyclicBarrier是包含了"ReentrantLock对象lock"和"Condition对象trip"，它是通过独占锁实现的。
 
 ### CyclicBarrier原理分析

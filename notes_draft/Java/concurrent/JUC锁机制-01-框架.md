@@ -38,7 +38,7 @@ ReentrantLock锁包括"公平的ReentrantLock"和"非公平的ReentrantLock"。
 
 #### ReentrantReadWriteLock
 >ReentrantReadWriteLock是读写锁接口ReadWriteLock的实现类，它包括子类ReadLock和WriteLock。
-ReentrantLock是共享锁，而WriteLock是独占锁。
+ReadLock是共享锁，而WriteLock是独占锁。
 
 #### CountDownLatch
 >CountDownLatch是一个同步辅助类，在完成一组正在其他线程中执行的操作之前，它允许一个或多个线程一直等待。

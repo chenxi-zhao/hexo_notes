@@ -3,7 +3,7 @@
 ThreadPoolExecutor是线程池类。对于线程池，可以通俗的将它理解为"存放一定数量线程的一个线程集合。线程池允许若个线程同时允许，允许同时运行的线程数量就是线程池的容量；当添加的到线程池中的线程超过它的容量时，会有一部分线程阻塞等待。线程池会通过相应的调度策略和拒绝策略，对添加到线程池中的线程进行管理.
 
 #### ThreadPoolExecutor数据结构
-![](http://images.cnitblog.com/blog/497634/201401/07233232-2d5fb63cdb064112b90c2d0ec12b60a4.jpg)
+![](http://static.tmaczhao.cn/images/b68e62bfa1ec7753101abf74bb8d72e0.jpg)
 
 1. workers
 workers是HashSet<Work>类型，即它是一个Worker集合。而一个Worker对应一个线程，也就是说线程池通过workers包含了"一个线程集合"。当Worker对应的线程池启动时，它会执行线程池中的任务；当执行完一个任务后，它会从线程池的阻塞队列中取出一个阻塞的任务来继续运行。
