@@ -158,7 +158,7 @@
 | --- | --- | --- |
 -XX:+UseSerialGC | Serial串行GC | Serial-Old串行GC |
 -XX:+UseParNewGC | ParNew并行GC | Serial Old串行GC |
--XX:+UseParallelGC | Parallel Scavenge并行回收GC | Serial-Old并行GC |
+-XX:+UseParallelGC | Parallel Scavenge并行回收GC | Parallel Old并行GC |
 -XX:+UseParallelOldGC | Parallel Scavenge并行回收GC | Parallel Old并行GC |
 -XX:+UseConcMarkSweepGC | ParNew 并行GC | CMS并发GC，当出现“Concurrent Mode Failure”时，采用Serial Old串行GC |
 -XX:+UseConcMarkSweepGC -XX:+UseParNewGC | Serial串行GC | 同上 |

@@ -10,7 +10,7 @@ tags: [java, 多线程]
 
 ### 框架
 先看看锁的框架图，如下所示。
-![](http://images.cnitblog.com/blog/497634/201401/271147386096273.jpg)
+![](http://static.tmaczhao.cn/images/5eff15dd9676dc6ddffbf6ed3fa972c5.jpg)
 #### Lock接口
 >JUC包中的 Lock 接口支持那些语义不同(重入、公平等)的锁规则。
 所谓语义不同，是指锁可是有"公平机制的锁"、"非公平机制的锁"、"可重入的锁"等等。

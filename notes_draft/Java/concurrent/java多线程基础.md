@@ -19,9 +19,9 @@
 
 
 这5种状态涉及到的内容包括Object类, Thread和synchronized关键字。这些内容我们会在后面的章节中逐个进行学习。
-**`Object类`**， 定义了wait(), notify(), notifyAll()等休眠/唤醒函数。
-**`Thread类`**， 定义了一些列的线程操作函数。例如，sleep()休眠函数, interrupt()中断函数, getName()获取线程名称等。
-**`synchronized`**关键字, 区分为synchronized代码块和synchronized方法。synchronized让线程获取对象的同步锁。
+- **`Object类`**， 定义了wait(), notify(), notifyAll()等休眠/唤醒函数。
+- **`Thread类`**， 定义了一些列的线程操作函数。例如，sleep()休眠函数, interrupt()中断函数, getName()获取线程名称等。
+- **`synchronized`**关键字, 区分为synchronized代码块和synchronized方法。synchronized让线程获取对象的同步锁。
 在后面详细介绍wait(),notify()等方法时，我们会分析为什么wait(), notify()等方法要定义在Object类，而不是Thread类中.
 >volatile修饰的变量，jvm虚拟机保证从主内存加载到线程工作内存的值是最新,多线程过程中保证每一次函数栈使用该值时都会去堆内存中加载最新的值处理，但很有可能出现脏读
 
