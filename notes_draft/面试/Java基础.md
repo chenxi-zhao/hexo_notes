@@ -57,11 +57,11 @@ class.forName和classLoader都可用来对类进行加载。前者除了将类�
 
 
 #### Java数组和链表两种结构的操作效率，在哪些情况下(从开头开始，从结尾开始，从中间开始)，哪些操作(插入，查找，删除)的效率高
-数组静态分配内存，链表动态分配内存；
-数组在内存中连续，链表不连续；
-数组元素在栈区，链表元素在堆区；
-数组利用下标定位，时间复杂度为O(1)，链表定位元素时间复杂度O(n)；
-数组插入或删除元素的时间复杂度O(n)，链表的时间复杂度O(1)。
+- 数组静态分配内存，链表动态分配内存；
+- 数组在内存中连续，链表不连续；
+- 数组元素在栈区，链表元素在堆区；
+- 数组利用下标定位，时间复杂度为O(1)，链表定位元素时间复杂度O(n)；
+- 数组插入或删除元素的时间复杂度O(n)，链表的时间复杂度O(1)。
 
 
 #### Java内存泄露的问题调查定位：jmap，jstack的使用
@@ -82,10 +82,6 @@ HashTable线程安全，HashMap允许null键。
 非运行时异常是RuntimeException以外的异常，类型上都属于Exception类及其子类。从程序语法角度讲是必须进行处理的异常，如果不处理，程序就不能编译通过。如IOException、SQLException等以及用户自定义的Exception异常，一般情况下不自定义检查异常。
 
 
-####. String a= “abc” String b = "abc" String c = new String("abc") String d = "ab" + "c" .他们之间用 == 比较的结果
-a == b == d != c
-
-
 #### String类的常用方法
 substring,split,indexOf,charAt,start/endWith,toLower/UpperCase,replace,matches,trim
 
@@ -104,12 +100,13 @@ substring,split,indexOf,charAt,start/endWith,toLower/UpperCase,replace,matches,t
 - 抽象类可以继承接口,而接口不能继承抽象类搜索
 - 抽象类的成员可以具有具体实现,而接口不行
 - 抽象的子类可以选择性实现其基类的抽象方法,而接口的子类必须实现
-
+- java8里边接口可以通过default关键字定义接口实现
 
 ####. java的基础类型和字节大小。
 - Int: 4 字节 Short: 2字节 Long: 8字节
 - Byte: 1字节 Character: 2字节
 - Float: 4字节 Double: 8字节
+- 引用：4个字节，Object：8个字节。空对象至少12个字节。
 
 #### Hashtable,HashMap,ConcurrentHashMap底层实现原理与线程安全问题
 HashMap线程不安全，HashTable通过对主要的方法如put，get加入关键字synchronized进行修饰保证其线程安全。
