@@ -76,7 +76,7 @@ class Singleton {
 
 **Jdk中的应用：**`JDBC`
 
-![](http://static.tmaczhao.cn/images/403b6614476ba347b55b49f791a21c1a.jpg!md)
+![](http://static.tmaczhao.cn/images/403b6614476ba347b55b49f791a21c1a.jpg)
 ##### 桥接模式和适配器模式的联用
 ![](http://static.tmaczhao.cn/images/0a1fff6673ad01fc38fd7aa0007bc7e7.jpg)
 
@@ -169,6 +169,80 @@ componentBB.display();
 >命令模式(Command Pattern)：将一个请求封装为一个对象，从而让我们可用不同的请求对客户进行参数化；对请求排队或者记录请求日志，以及支持可撤销的操作。命令模式是一种对象行为型模式，其别名为动作(Action)模式或事务(Transaction)模式。
 
 ![](http://static.tmaczhao.cn/images/39fccc71b4d3685c5c8cd1c76876efb1.jpg)
+
+>很多mvc控制器用反射把参数注入到controller中可以看作是命令模式的思想
+
+##### 命令队列
+```java
+class CommandQueue {
+    //定义一个ArrayList来存储命令队列
+    private ArrayList<Command> commands = new ArrayList<Command>();
+
+    public void addCommand(Command command) {
+        commands.add(command);
+    }
+
+    public void removeCommand(Command command) {
+        commands.remove(command);
+    }
+
+    //循环调用每一个命令对象的execute()方法
+    public void execute() {
+        for (Object command : commands) {
+            ((Command)command).execute();
+        }
+    }
+}
+```
+很多web框架中拦截器的实现就是命令模式的思想
+
+##### 宏命令
+`宏命令(Macro Command)又称为组合命令，它是组合模式和命令模式联用的产物`。宏命令是一个具体命令类，它拥有一个集合属性，在该集合中包含了对其他命令对象的引用。`通常宏命令不直接与请求接收者交互，而是通过它的成员来调用接收者的方法。`当调用宏命令的execute()方法时，将递归调用它所包含的每个成员命令的execute()方法，一个宏命令的成员可以是简单命令，还可以继续是宏命令。执行一个宏命令将触发多个具体命令的执行，从而实现对命令的批处理，其结构如图7所示：
+![](http://static.tmaczhao.cn/images/62850906433e6159b5f1478e9d491f3f.jpg)
+
+
+#### 解释器模式
+>解释器模式(Interpreter Pattern)：定义一个语言的文法，并且建立一个解释器来解释该语言中的句子，这里的“语言”是指使用规定格式和语法的代码。解释器模式是一种类行为型模式。
+
+由于表达式可以分为终结符表达式和非终结符表达式，所以解释其模式和组合模式结构有些相似，但在解释器模式中包含更多的组成元素。
+
+![](http://static.tmaczhao.cn/images/623178ef379b0b444b18580a2261d093.jpg)
+
+在解释器模式结构图中包含如下几个角色：
+>- AbstractExpression（抽象表达式）：在抽象表达式中声明了抽象的解释操作，它是所有终结符表达式和非终结符表达式的公共父类。
+- TerminalExpression（终结符表达式）：终结符表达式是抽象表达式的子类，它实现了与文法中的终结符相关联的解释操作，在句子中的每一个终结符都是该类的一个实例。通常在一个解释器模式中只有少数几个终结符表达式类，它们的实例可以通过非终结符表达式组成较为复杂的句子。
+- NonterminalExpression（非终结符表达式）：非终结符表达式也是抽象表达式的子类，它实现了文法中非终结符的解释操作，由于在非终结符表达式中可以包含终结符表达式，也可以继续包含非终结符表达式，因此其解释操作一般通过递归的方式来完成。
+- Context（环境类）：环境类又称为上下文类，它用于存储解释器之外的一些全局信息，通常它临时存储了需要解释的语句。
+
+在解释器模式中，每一种终结符和非终结符都有一个具体类与之对应，正因为使用类来表示每一条文法规则，所以系统将具有较好的灵活性和可扩展性。
+
+
+#### 迭代器模式
+>迭代器模式(Iterator Pattern)：提供一种方法来访问聚合对象，而不用暴露这个对象的内部表示，其别名为游标(Cursor)。迭代器模式是一种对象行为型模式。
+![](http://static.tmaczhao.cn/images/98b08626b621299cc609ccc8cc6c3b80.jpg)
+
+>- Iterator（抽象迭代器）：它定义了访问和遍历元素的接口，声明了用于遍历数据元素的方法，例如：用于获取第一个元素的first()方法，用于访问下一个元素的next()方法，用于判断是否还有下一个元素的hasNext()方法，用于获取当前元素的currentItem()方法等，在具体迭代器中将实现这些方法。
+- ConcreteIterator（具体迭代器）：它实现了抽象迭代器接口，完成对聚合对象的遍历，同时在具体迭代器中通过游标来记录在聚合对象中所处的当前位置，在具体实现时，游标通常是一个表示位置的非负整数。
+- Aggregate（抽象聚合类）：它用于存储和管理元素对象，声明一个createIterator()方法用于创建一个迭代器对象，充当抽象迭代器工厂角色。
+- ConcreteAggregate（具体聚合类）：它实现了在抽象聚合类中声明的createIterator()方法，该方法返回一个与该具体聚合类对应的具体迭代器ConcreteIterator实例。维持一个对具体聚合对象的引用，以便于访问存储在聚合对象中的数据。
+
+
+#### 观察者模式
+>观察者模式(Observer Pattern)：定义对象之间的一种一对多依赖关系，使得每当一个对象状态发生改变时，其相关依赖对象皆得到通知并被自动更新。观察者模式的别名包括发布-订阅（Publish/Subscribe）模式、模型-视图（Model/View）模式、源-监听器（Source/Listener）模式或从属者（Dependents）模式。观察者模式是一种对象行为型模式。
+![](http://static.tmaczhao.cn/images/90d8033305189ad5ea68f979b39db306.jpg)
+
+>- Subject（目标）：目标又称为主题，它是指被观察的对象。在目标中定义了一个观察者集合，一个观察目标可以接受任意数量的观察者来观察，它提供一系列方法来增加和删除观察者对象，同时它定义了通知方法notify()。目标类可以是接口，也可以是抽象类或具体类。
+- ConcreteSubject（具体目标）：具体目标是目标类的子类，通常它包含有经常发生改变的数据，当它的状态发生改变时，向它的各个观察者发出通知；同时它还实现了在目标类中定义的抽象业务逻辑方法（如果有的话）。如果无须扩展目标类，则具体目标类可以省略。
+- Observer（观察者）：观察者将对观察目标的改变做出反应，观察者一般定义为接口，该接口声明了更新数据的方法update()，因此又称为抽象观察者。
+- ConcreteObserver（具体观察者）：在具体观察者中维护一个指向具体目标对象的引用，它存储具体观察者的有关状态，这些状态需要和具体目标的状态保持一致；它实现了在抽象观察者Observer中定义的update()方法。通常在实现时，可以调用具体目标类的attach()方法将自己添加到目标类的集合中或通过detach()方法将自己从目标类的集合中删除。
+
+
+#### 策略模式
+>策略模式(Strategy Pattern)：定义一系列算法类，将每一个算法封装起来，并让它们可以相互替换，策略模式让算法独立于使用它的客户而变化，也称为政策模式(Policy)。策略模式是一种对象行为型模式。
+
+![](http://static.tmaczhao.cn/images/7acc32042b4ee281dfd890c03983b7bc.jpg)
+
+
 
 
 
