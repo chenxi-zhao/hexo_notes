@@ -2,14 +2,14 @@
 HashMap基于哈希表的Map接口的实现。此实现提供所有可选的映射操作，并允许使用null值和null键。（除了不同步和允许使用null之外，HashMap类与Hashtable大致相同。）null值hashcode为0，所以以null为键的键值对存储在table[0]。
 
 HashMap在1.6中使用链表(Entry<K,V>)加数组(Entry数组)的方式实现，HashMap中主要是通过key的hashCode来计算hash值的，只要hashCode相同，计算出来的hash值就一样。如果发生hash冲突通过链表解决。HashMap中的负载因子loadFactor默认为0.75，resize过程中一般保证为大于initialCapacity的最小的2的n次幂（一般容量初始为16，之后每次乘2）。
->JDK 1.6 当数量大于容量 * 负载因子即会扩充容量。
-JDK 1.7 初次扩充为：当数量大于容量时扩充；第二次及以后为：当数量大于容量 * 负载因子时扩充。
-JDK 1.8 初次扩充为：与负载因子无关；第二次及以后为：与负载因子有关。
+>- JDK 1.6 当数量大于容量 * 负载因子即会扩充容量。
+- JDK 1.7 初次扩充为：当数量大于容量时扩充；第二次及以后为：当数量大于容量 * 负载因子时扩充。
+- JDK 1.8 初次扩充为：与负载因子无关；第二次及以后为：与负载因子有关。
 
 JDK1.8中使用位桶+链表+红黑树实现，当链表长度超过阈值（8）时，将链表转换为红黑树。
 ![](http://images2015.cnblogs.com/blog/616953/201603/616953-20160304192851940-1880633940.png)
 
->HashMap 中使用 hashcode & (table.length -1) 计算table数组的索引位置。
+>HashMap中使用**`hash&(length-1)`**计算table数组的索引位置。
 因为HashMap底层数组的长度总是2的n次方，当length总是2的n次方时，hash&(length-1)运算等价于对length取模，也就是h%length，但是&比%具有更高的效率。
 
 

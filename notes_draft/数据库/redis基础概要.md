@@ -16,6 +16,7 @@ Redis支持五种数据类型：string（字符串），hash（哈希），list�
 string是redis最基本的类型，你可以理解成与Memcached一模一样的类型，一个key对应一个value。
 string类型是二进制安全的。意思是redis的string可以包含任何数据。比如jpg图片或者序列化的对象 。
 string类型是Redis最基本的数据类型，一个键最大能存储512MB。
+
 | 命令 | 示例 | 解释 |
 | --- | --- | --- |
 | set | set name tmac | 设置键值对name=tmac |
