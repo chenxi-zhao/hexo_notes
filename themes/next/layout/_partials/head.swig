@@ -36,9 +36,6 @@
   <meta name="google-site-verification" content="{{ theme.google_site_verification }}" />
 {% endif %}
 
-{% if theme.bing_site_verification %}
-  <meta name="msvalidate.01" content="{{ theme.bing_site_verification }}" />
-{% endif %}
 
 {% if theme.yandex_site_verification %}
   <meta name="yandex-verification" content="{{ theme.yandex_site_verification }}" />
@@ -117,11 +114,10 @@
   var CONFIG = {
     root: '{{ theme.root }}',
     scheme: '{{ theme.scheme }}',
-    version: '{{ theme.version }}',
     sidebar: {{ theme.sidebar | json_encode }},
     fancybox: {{ theme.fancybox }},
     tabs: {{ theme.tabs.enable }},
-    motion: {{ theme.motion | json_encode }},
+    motion: {{ theme.use_motion }},
     duoshuo: {
       userId: '{{ theme.duoshuo_info.user_id | default() }}',
       author: '{{ theme.duoshuo_info.admin_nickname | default(__('author'))}}'
