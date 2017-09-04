@@ -7,7 +7,7 @@ tags: [java, 多线程]
 ### 什么是多线程
 
 线程状态图
-![](http://images.cnitblog.com/blog/288799/201409/061046391107893.jpg)
+![](https://images.cnitblog.com/blog/288799/201409/061046391107893.jpg)
 
 <!-- more -->
 

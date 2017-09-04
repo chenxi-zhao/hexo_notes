@@ -87,12 +87,15 @@ MYSQL 认为必须检查的用来返回请求数据的行数
 >查看数据库系统属性值：show variables like '%log%';
 
 
+
 #### Count()、Max()、子查询
 索引、字段null值影响count(*)和count(id)、子查询/join
 
 
 
-
+#### or子句
+1. 数据量太少，制定执行计划时发现全表更快，可能执行全表扫描。
+2. 版本5.0以上时，且查询优化器开启了index_merge_union,也就是变量optimizer_switch里存在index_merge_union且为on，union优化
 
 
 

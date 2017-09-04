@@ -7,7 +7,7 @@ categories: database
 
 ## MySQL架构
 ### 逻辑架构
-![](http://pic002.cnblogs.com/images/2012/152332/2012031510324452.png)
+![](https://pic002.cnblogs.com/images/2012/152332/2012031510324452.png)
 
 每个虚线框为一层，总共三层。
 第一层，服务层(为客户端服务):为请求做连接处理，授权认证，安全等。

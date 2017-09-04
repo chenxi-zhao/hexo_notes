@@ -12,7 +12,7 @@ JUC包中的锁，包括：Lock接口，ReadWriteLock接口，LockSupport阻塞�
 
 ### 框架
 先看看锁的框架图，如下所示。
-![](http://static.tmaczhao.cn/images/5eff15dd9676dc6ddffbf6ed3fa972c5.jpg)
+![](https://static.tmaczhao.cn/images/5eff15dd9676dc6ddffbf6ed3fa972c5.jpg)
 #### Lock接口
 >JUC包中的 Lock 接口支持那些语义不同(重入、公平等)的锁规则。
 所谓语义不同，是指锁可是有"公平机制的锁"、"非公平机制的锁"、"可重入的锁"等等。
@@ -233,7 +233,7 @@ public class CLHLock {
 CLH锁 与 MCS锁 的比较
 
 下图是CLH锁和MCS锁队列图示：
-![](http://static.tmaczhao.cn/images/java_multi_thread/CLH-MCS-SpinLock.png)
+![](https://static.tmaczhao.cn/images/java_multi_thread/CLH-MCS-SpinLock.png)
 
 差异：
 

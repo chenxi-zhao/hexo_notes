@@ -11,7 +11,7 @@ ThreadPoolExecutor是线程池类。对于线程池，可以通俗的将它理�
 <!-- more -->
 
 #### ThreadPoolExecutor数据结构
-![](http://static.tmaczhao.cn/images/b68e62bfa1ec7753101abf74bb8d72e0.jpg)
+![](https://static.tmaczhao.cn/images/b68e62bfa1ec7753101abf74bb8d72e0.jpg)
 
 1. workers
 workers是HashSet<Work>类型，即它是一个Worker集合。而一个Worker对应一个线程，也就是说线程池通过workers包含了"一个线程集合"。当Worker对应的线程池启动时，它会执行线程池中的任务；当执行完一个任务后，它会从线程池的阻塞队列中取出一个阻塞的任务来继续运行。
