@@ -19,43 +19,43 @@ tags: [架构,笔记]
 ### 大型网站演化发展历程
 #### 初始阶段
 使用类似于LAMP结构的网站，所有资源、数据库、程序都部署在同一服务器上
-![](https://static.tmaczhao.cn/images/large_website_notes/large_website_archi_1.1.png)
+![](http://static.tmaczhao.cn/images/large_website_notes/large_website_archi_1.1.png)
 
 #### 应用与数据服务分离
 文件、程序、数据库按照需求分离成多台服务器，按各自特点(储存，性能，缓存等)进行分别部署
-![](https://static.tmaczhao.cn/images/large_website_notes/large_website_archi_1.2.png)
+![](http://static.tmaczhao.cn/images/large_website_notes/large_website_archi_1.2.png)
 
 #### **缓存**改善网站性能
 缓存高访问数据，缓存主要有**本地缓存**和**远程分布式缓存**(集群，可扩展服务器)
-![](https://static.tmaczhao.cn/images/large_website_notes/large_website_archi_1.3.png)
+![](http://static.tmaczhao.cn/images/large_website_notes/large_website_archi_1.3.png)
 
 #### 应用服务器集群
 解决高并发海量数据带来的性能不足问题，使用**负载均衡服务器**合理调度集群
-![](https://static.tmaczhao.cn/images/large_website_notes/large_website_archi_1.4.png)
+![](http://static.tmaczhao.cn/images/large_website_notes/large_website_archi_1.4.png)
 
 #### 数据库读写分离
 主从热备功能,两台数据库服务器配置主从关系，写数据访问主数据库并主从复制同步从数据库
-![](https://static.tmaczhao.cn/images/large_website_notes/large_website_archi_1.5.png)
+![](http://static.tmaczhao.cn/images/large_website_notes/large_website_archi_1.5.png)
 
 #### CDN和反向代理
 CDN和反向代理的原理都是缓存，CDN访问CDN提供商的机房，反向代理部署在网站的中心机房，如果请求的资源存在缓存，直接返回
-![](https://static.tmaczhao.cn/images/large_website_notes/large_website_archi_1.6.png)
+![](http://static.tmaczhao.cn/images/large_website_notes/large_website_archi_1.6.png)
 
 #### 分布式文件系统和分布式数据库系统
 数据库拆分一般情况下业务分库，将不同业务的数据分别部署，只有单表规模非常大的时候会使用分布式数据库
-![](https://static.tmaczhao.cn/images/large_website_notes/large_website_archi_1.7.png)
+![](http://static.tmaczhao.cn/images/large_website_notes/large_website_archi_1.7.png)
 
 #### 使用NoSQL和搜索引擎
 网站业务和数据非常复杂时采用一些非关系型数据库技术如NoSQL或非数据库查询技术搜索引擎进行查询
-![](https://static.tmaczhao.cn/images/large_website_notes/large_website_archi_1.8.png)
+![](http://static.tmaczhao.cn/images/large_website_notes/large_website_archi_1.8.png)
 
 #### 业务拆分
 拆分网站业务，拆分产品线，分而治之，独立部署和维护
-![](https://static.tmaczhao.cn/images/large_website_notes/large_website_archi_1.9.png)
+![](http://static.tmaczhao.cn/images/large_website_notes/large_website_archi_1.9.png)
 
 #### 分布式服务
 提取不同应用系统的共同业务独立部署，由这些可以复用的业务连接数据库，提供业务服务，应用系统提供管理界面，通过分布式服务完成业务操作
-![](https://static.tmaczhao.cn/images/large_website_notes/large_website_archi_1.10.png)
+![](http://static.tmaczhao.cn/images/large_website_notes/large_website_archi_1.10.png)
 
 
 ### 网站架构价值观

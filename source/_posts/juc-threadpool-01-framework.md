@@ -8,7 +8,7 @@ Java里面线程池的顶级接口是Executor，但是严格意义上讲Executor
 
 下面这张图完整描述了线程池的类体系结构。
 
-![](https://static.tmaczhao.cn/images/java_multi_thread/Executor-class_thumb.png)
+![](http://static.tmaczhao.cn/images/java_multi_thread/Executor-class_thumb.png)
 
 <!-- more -->
 
@@ -49,7 +49,7 @@ newSingleThreadScheduledExecutor：创建一个单线程的线程池。此线程
 
 ### 线程池生命周期
 #### 线程池的四种状态
-![](https://images.cnitblog.com/blog/497634/201401/08000847-0a9caed4d6914485b2f56048c668251a.jpg)
+![](http://images.cnitblog.com/blog/497634/201401/08000847-0a9caed4d6914485b2f56048c668251a.jpg)
 
 1. RUNNING
 - 状态说明：线程池处在RUNNING状态时，能够接收新任务，以及对已添加的任务进行处理。
@@ -74,7 +74,7 @@ newSingleThreadScheduledExecutor：创建一个单线程的线程池。此线程
 - 状态切换：线程池处在TIDYING状态时，执行完terminated()之后，就会由 TIDYING -> TERMINATED。
 
 #### 线程池的API
-![](https://static.tmaczhao.cn/images/java_multi_thread/ExecutorService-LifeCycle_thumb.png)
+![](http://static.tmaczhao.cn/images/java_multi_thread/ExecutorService-LifeCycle_thumb.png)
 
 1. 平缓关闭线程池使用shutdown()
 2. 立即关闭线程池使用shutdownNow()，同时得到未执行的任务列表

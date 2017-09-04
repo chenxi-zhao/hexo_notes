@@ -91,11 +91,11 @@ Reference:
 
 #### (2)图片链接
 ```
-![](https://www.google.rw/images/srpr/logo4w.png)
+![](http://www.google.rw/images/srpr/logo4w.png)
 ![][google_url]
-[google_url]:https://www.google.rw/images/srpr/logo4w.png
+[google_url]:http://www.google.rw/images/srpr/logo4w.png
 ```
-![](https://www.google.rw/images/srpr/logo4w.png)
+![](http://www.google.rw/images/srpr/logo4w.png)
 ![][google_img_url]
 
 
@@ -125,6 +125,6 @@ $$\sum_{i=1}^n a_i=0$$
 
 
 [google_url]:https://www.google.com
-[google_img_url]:https://www.google.rw/images/srpr/logo4w.png
+[google_img_url]:http://www.google.rw/images/srpr/logo4w.png
 [markdown]:https://www.zybuluo.com/mdeditor?url=https://www.zybuluo.com/static/editor/md-help.markdown#cmd-markdown-高阶语法手册
 
