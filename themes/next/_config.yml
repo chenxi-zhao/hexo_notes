@@ -250,7 +250,7 @@ font:
   enable: true
 
   # 外链字体库地址，例如 //fonts.googleapis.com (默认值)
-  host:
+  host: //fonts.tmaczhao.cn
 
   # 全局字体，应用在 body 元素上
   global:
@@ -286,7 +286,7 @@ font:
 # MathJax Support
 mathjax:
   enable: true
-  per_page: true
+  per_page: false
   cdn: //cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML
 
 # Han Support docs: https://hanzi.pro/

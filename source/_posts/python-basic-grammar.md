@@ -29,8 +29,8 @@ Python中编写中文代码需加入# -\*- coding: UTF-8 -*- 或者 #coding=utf-
 print "你好，世界";
 ```
 ### Python保留字符
-![](http://static.tmaczhao.cn/images/python/python%E4%BF%9D%E7%95%99%E5%AD%97.png)
-![](http://static.tmaczhao.cn/images/python/python%E4%BF%9D%E7%95%99%E5%AD%972.png)
+![](https://static.tmaczhao.cn/images/python/python%E4%BF%9D%E7%95%99%E5%AD%97.png)
+![](https://static.tmaczhao.cn/images/python/python%E4%BF%9D%E7%95%99%E5%AD%972.png)
 
 
 ### Python行缩进

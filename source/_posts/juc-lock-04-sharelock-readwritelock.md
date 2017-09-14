@@ -67,7 +67,7 @@ ReentrantReadWriteLock.WriteLock writeLock()
 
 ### ReentrantReadWriteLock数据结构
 ReentrantReadWriteLock的UML类图如下：
-![](http://static.tmaczhao.cn/images/5655a50f8ef3986bb52ded1bab729276.jpg)
+![](https://static.tmaczhao.cn/images/5655a50f8ef3986bb52ded1bab729276.jpg)
 从中可以看出：
 1. ReentrantReadWriteLock实现了ReadWriteLock接口。ReadWriteLock是一个读写锁的接口，提供了"获取读锁的readLock()函数" 和 "获取写锁的writeLock()函数"。
 2. ReentrantReadWriteLock中包含：**sync对象**，**读锁readerLock**和**写锁writerLock**。读锁ReadLock和写锁WriteLock都实现了Lock接口。读锁ReadLock和写锁WriteLock中也都分别包含了"Sync对象"，它们的Sync对象和ReentrantReadWriteLock的Sync对象 是一样的，就是通过sync，读锁和写锁实现了对同一个对象的访问。

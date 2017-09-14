@@ -5,7 +5,7 @@ categories: operating_system
 tags: [operating_system, 操作系统]
 ---
 ###  进程状态转换
-![](http://zezhi.qiniudn.com/wp-content/uploads/2014/06/1.jpeg)
+![](https://zezhi.qiniudn.com/wp-content/uploads/2014/06/1.jpeg)
 就绪等待CPU资源，阻塞等待CPU之外的资源，如I/O
 
 ###  进程和线程

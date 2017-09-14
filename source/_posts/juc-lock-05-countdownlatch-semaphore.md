@@ -35,7 +35,7 @@ String toString()
 
 ### CountDownLatch数据结构
 CountDownLatch的UML类图如下：
-![](http://static.tmaczhao.cn/images/5283cff8e03e4fa5aed86282e9bca233.jpg)
+![](https://static.tmaczhao.cn/images/5283cff8e03e4fa5aed86282e9bca233.jpg)
 
 CountDownLatch的数据结构很简单，它是通过"共享锁"实现的。它包含了sync对象，sync是Sync类型。Sync是实例类，它继承于AQS
 
