@@ -1,7 +1,7 @@
 #### session和cookie的区别和联系，session的生命周期，多个服务部署时session管理。
 
 #### servlet的一些相关问题
-![Servlet面试题归纳][http://blog.csdn.net/caohaicheng/article/details/38116481]
+[Servlet面试题归纳](http://blog.csdn.net/caohaicheng/article/details/38116481)
 
 
 #### webservice相关问题
@@ -11,8 +11,8 @@
 
 
 #### jdbc连接，forname方式的步骤，怎么声明使用一个事务。举例并具体代码
-![JDBC常见面试题集锦][http://www.cnblogs.com/kevinf/p/3705148.html]
-![JDBC系列 之 <驱动加载原理全面解析>][http://blog.csdn.net/luanlouis/article/details/29850811]
+[JDBC常见面试题集锦](http://www.cnblogs.com/kevinf/p/3705148.html)
+[JDBC系列 之 <驱动加载原理全面解析>](http://blog.csdn.net/luanlouis/article/details/29850811)
 
 **`Class.forName()将对应的驱动类加载到内存中，然后执行内存中的static静态代码段，代码段中，会创建一个驱动Driver的实例，放入DriverManager中，供DriverManager使用。`**
 

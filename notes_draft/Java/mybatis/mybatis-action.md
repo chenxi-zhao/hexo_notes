@@ -19,12 +19,13 @@ if(rs.next()){
     student.setDob(rs.getDate("dob"));
 }
 ```
+
 >上述的每个方法中有大量的重复代码：创建一个连接，创建一个Statement对象，设置输入参数，关闭资源（如connection，statement，resultSet）。MyBatis抽象了上述的这些相同的任务，如准备需要被执行的SQLstatement对象并且将Java对象作为输入数据传递给statement对象的任务，进而开发人员可以专注于真正重要的方面。
 
 `另外，MyBatis自动化了将从输入的Java对象中的属性设置成查询参数、从SQL结果集上生成Java对象这两个过程。`
 
 >- hibernate映射Java对象到数据库表上，
-- mybatis则是主要映射查询结果集合以及查询参数，这使得MyBatis可以很好地与传统数据库协同工作。你可以根据面相对象的模型创建Java域对象，执行传统数据库的查询，然后将结果映射到对应的Java对象上。
+>- mybatis则是主要映射查询结果集合以及查询参数，这使得MyBatis可以很好地与传统数据库协同工作。你可以根据面相对象的模型创建Java域对象，执行传统数据库的查询，然后将结果映射到对应的Java对象上。
 
 
 ### mybatis特性
@@ -230,6 +231,7 @@ public class DataSourceFactory{
     }
 }
 ```
+
 >还可以使用第三方库创建数据源，c3p0、druid等
 
 #### 全局设置

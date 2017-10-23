@@ -9,6 +9,7 @@ Spring总结起来优点如下：
 - Spring的ORM和DAO提供了与第三方持久层框架的良好整合，并简化了底层的数据库访问；
 - Spring的高度开放性，并不强制应用完全依赖于Spring，开发者可自由选用Spring框架的部分或全部。
 - Spring框架的组成结构图如下所示：
+
 ![](http://static.tmaczhao.cn/images/f4610db7c80e10606b08632f5e1397a9.jpg)
 
 
@@ -188,14 +189,80 @@ Spring中的AOP代理由Spring的IoC容器负责生成、管理，其依赖关�
 并在Spring配置文件中做如下配置：
 ```xml
 <!--启动@AspectJ支持-->
-<aop:aspectj-autoproxy/>
+<aop:aspectj-autoproxy proxy-target-class="true"/>
 <!--指定自动搜索Bean组件、自动搜索切面类-->
 <context:component-scan base-package="edu.shu.sprint.service">
     <context:include-filter type="annotation" expression="org.aspectj.lang.annotation.Aspect"/>
 </context:component-scan>
+
+<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+    <tx:attributes>
+        <tx:method name="add*" />
+        <tx:method name="save*" />
+        <tx:method name="update*" />
+        <tx:method name="modify*" />
+        <tx:method name="edit*" />
+        <tx:method name="delete*" />
+    </tx:attributes>
+</tx:advice>
+
+<!-- Spring AOP config 解释一下 (* com.evan.crm.service.*.*(..)) 中几个通配符的含义： -->
+<!-- 第一个 * —— 通配 任意返回值类型 -->
+<!-- 第二个 * —— 通配 包com.evan.crm.service下的任意class -->
+<!-- 第三个 * —— 通配包com.evan.crm.service下的任意class的任意方法 -->
+<!-- 第四个 .. —— 通配 方法可以有0个或多个参数 -->
+<!-- 事务控制位置，一般在业务层service -->
+<aop:config>
+    <aop:pointcut id="transactionPointcut" expression="execution(* com.chenxi.spring4hibernate.service.*Impl.*(..))" />
+    <!-- 多个 expression="(execution(* com.weixin.spring4hibernate.service..*Impl.*(..)))or(execution(* org.weixin.service..*Impl.*(..)))" -->
+    <aop:advisor pointcut-ref="transactionPointcut" advice-ref="transactionAdvice" />
+</aop:config>
 ```
 
+基于注解的SpringAOP
+```java
+@Aspect
+public class LoggingAspectJ {
+    /**
+     * Following is the definition for a pointcut to select * all the methods available. So advice will be called * for all the methods.
+     */
+    @Pointcut("execution(* com.chenxi.spring4basic.aop.*.*(..))")
+    private void selectAll() {
+    }
 
+    /**
+     * This is the method which I would like to execute * before a selected method execution.
+     */
+    @Before("selectAll()")
+    public void beforeAdvice() {
+        System.out.println("Going to setup student profile.");
+    }
+
+    /**
+     * This is the method which I would like to execute * after a selected method execution.
+     */
+    @After("selectAll()")
+    public void afterAdvice() {
+        System.out.println("Student profile has been setup.");
+    }
+
+    /**
+     * This is the method which I would like to execute * when any method returns.
+     */
+    @AfterReturning(pointcut = "selectAll()", returning = "retVal")
+    public void afterReturningAdvice(Object retVal) {
+        System.out.println("Returning:" + retVal.toString());
+    }
+
+    /**
+     * This is the method which I would like to execute * if there is an exception raised by any method.
+     */
+    @AfterThrowing(pointcut = "selectAll()", throwing = "ex")
+    public void AfterThrowingAdvice(IllegalArgumentException ex) {
+        System.out.println("There has been an exception: " + ex.toString());
+    }
+}
+```
 
 
 

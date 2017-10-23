@@ -294,7 +294,7 @@ ManagedTransaction让容器来管理事务Transaction的整个生命周期，意
 1. MyBatis在开启一个数据库会话时，会创建一个新的SqlSession对象，SqlSession对象中会有一个新的Executor对象，Executor对象中持有一个新的PerpetualCache对象；当会话结束时，SqlSession对象及其内部的Executor对象还有PerpetualCache对象也一并释放掉。
 2. 如果SqlSession调用了close()方法，会释放掉一级缓存PerpetualCache对象，一级缓存将不可用；
 3. 如果SqlSession调用了clearCache()，会清空PerpetualCache对象中的数据，但是该对象仍可使用；
-4.SqlSession中执行了任何一个数据更新操作（update、insert等），都会清空PerpetualCache对象的数据，但是该对象可以继续使用；
+4. SqlSession中执行了任何一个数据更新操作（update、insert等），都会清空PerpetualCache对象的数据，但是该对象可以继续使用；
 
 ##### 一级缓存的工作流程
 1. 对于某个查询，根据statementId,params,rowBounds来构建一个key值，根据这个key值去缓存Cache中取出对应的key值存储的缓存结果；
@@ -328,9 +328,9 @@ MyBatis并不是简单地对整个Application就只有一个Cache缓存对象，
 >虽然在Mapper中配置了<cache>,并且为此Mapper分配了Cache对象，这并不表示我们使用Mapper中定义的查询语句查到的结果都会放置到Cache对象之中，我们必须指定Mapper中的某条选择语句是否支持缓存，即如下所示，在<select\>节点中配置useCache="true"，Mapper才会对此Select的查询支持缓存特性，否则，不会对此Select查询，不会经过Cache缓存。
 
 总之，要想使某条Select查询支持二级缓存，你需要保证：
-    1.  MyBatis支持二级缓存的总开关：全局配置变量参数   cacheEnabled=true
-    2. 该select语句所在的Mapper，配置了<cache\> 或<cached-ref\>节点，并且有效
-    3. 该select语句的参数 useCache=true
+  1. MyBatis支持二级缓存的总开关：全局配置变量参数   cacheEnabled=true
+  2. 该select语句所在的Mapper，配置了<cache\> 或<cached-ref\>节点，并且有效
+  3. 该select语句的参数 useCache=true
 
 >二级缓存中关于各种过期时间，过期策略，大小等功能通过装饰者模式形成了一条委托链
 

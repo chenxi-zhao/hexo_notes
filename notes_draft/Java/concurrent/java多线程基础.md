@@ -10,18 +10,18 @@
 2. **就绪状态(Runnable)**: 也被称为“可执行状态”。线程对象被创建后，其它线程调用了该对象的start()方法，从而来启动该线程。例如，thread.start()。处于就绪状态的线程，随时可能被CPU调度执行。
 3. **运行状态(Running)**: 线程获取CPU权限进行执行。需要注意的是，线程只能从就绪状态进入到运行状态。
 4. **阻塞状态(Blocked)**: 阻塞状态是线程因为某种原因放弃CPU使用权，暂时停止运行。直到线程进入就绪状态，才有机会转到运行状态。阻塞的情况分三种：
->等待阻塞 -- 通过调用线程的wait()方法，让线程等待某工作的完成。
-同步阻塞 -- 线程在获取synchronized同步锁失败(因为锁被其它线程所占用)，它会进入同步阻塞状态。
-其他阻塞 -- 通过调用线程的sleep()或join()或发出了I/O请求时，线程会进入到阻塞状态。当sleep()状态超时、join()等待线程终止或者超时、或者I/O处理完毕时，线程重新转入就绪状态。
+>- 等待阻塞 -- 通过调用线程的wait()方法，让线程等待某工作的完成。
+>- 同步阻塞 -- 线程在获取synchronized同步锁失败(因为锁被其它线程所占用)，它会进入同步阻塞状态。
+>- 其他阻塞 -- 通过调用线程的sleep()或join()或发出了I/O请求时，线程会进入到阻塞状态。当sleep()状态超时、join()等待线程终止或者超时、或者I/O处理完毕时，线程重新转入就绪状态。
 
 5. **死亡状态(Dead)**: 线程执行完了或者因异常退出了run()方法，该线程结束生命周期。
 
 
 
 这5种状态涉及到的内容包括Object类, Thread和synchronized关键字。这些内容我们会在后面的章节中逐个进行学习。
-- **`Object类`**， 定义了wait(), notify(), notifyAll()等休眠/唤醒函数。
-- **`Thread类`**， 定义了一些列的线程操作函数。例如，sleep()休眠函数, interrupt()中断函数, getName()获取线程名称等。
-- **`synchronized`**关键字, 区分为synchronized代码块和synchronized方法。synchronized让线程获取对象的同步锁。
+- **`Object类`** ， 定义了wait(), notify(), notifyAll()等休眠/唤醒函数。
+- **`Thread类`** ， 定义了一些列的线程操作函数。例如，sleep()休眠函数, interrupt()中断函数, getName()获取线程名称等。
+- **`synchronized`** 关键字, 区分为synchronized代码块和synchronized方法。synchronized让线程获取对象的同步锁。
 在后面详细介绍wait(),notify()等方法时，我们会分析为什么wait(), notify()等方法要定义在Object类，而不是Thread类中.
 >volatile修饰的变量，jvm虚拟机保证从主内存加载到线程工作内存的值是最新,多线程过程中保证每一次函数栈使用该值时都会去堆内存中加载最新的值处理，但很有可能出现脏读
 
@@ -44,7 +44,7 @@ class MyThread implements Runnable{
 >start():它的作用是启动一个新线程，新线程会执行相应的run()方法。start()不能被重复调用。
 run(): run()等同于可重复调用的普通方法。单独调用run()，会在当前线程中执行run()方法，但是并不会启动新线程！
 
-start通过**`native void start0()`**方法启动一个新线程来调用run()方法，run()方法中直接调用Runable对象的run()方法，不建立新线程，Thread源码（1.7）如下
+start通过 **`native void start0()`** 方法启动一个新线程来调用run()方法，run()方法中直接调用Runable对象的run()方法，不建立新线程，Thread源码（1.7）如下
 ```java
 public synchronized void start() {
     ...
@@ -244,8 +244,7 @@ public final synchronized void join(long millis) throws InterruptedException {
  */
 public final native boolean isAlive();
 ```
-isAlive()和wait(0)都是native方法。isAlive判断**`this thread`**是否存活，而wait(0)堵塞**`current thread`**
-join方法由主线程触发，则该方法内执行时当前线程是主线程，所以子线程执行结束之前主线程一直被休眠
+isAlive()和wait(0)都是native方法。isAlive判断 **`this thread`** 是否存活，而wait(0)堵塞 **`current thread`** join方法由主线程触发，则该方法内执行时当前线程是主线程，所以子线程执行结束之前主线程一直被休眠
 
 
 ### interrupt()和线程终止方式
@@ -295,7 +294,7 @@ public void run() {
 说明：线程中有一个flag标记，它的默认值是true；并且我们提供stopTask()来设置flag标记。当我们需要终止该线程时，调用该线程的stopTask()方法就可以让线程退出while循环。
 注意：将flag定义为volatile类型，是为了保证flag的可见性。即其它线程通过stopTask()修改了flag之后，本线程能看到修改后的flag的值
 
-**`综合线程处于“阻塞状态”和“运行状态”的终止方式，比较通用的终止线程的形式如下`**：
+**`综合线程处于“阻塞状态”和“运行状态”的终止方式，比较通用的终止线程的形式如下`** ：
 ```java
 public void run() {
     try {
@@ -316,7 +315,7 @@ interrupted() 和 isInterrupted()都能够用于检测对象的“中断标记�
 
 ### 线程优先级和守护线程
 java中的线程优先级的范围是1～10，默认的优先级是5。“高优先级线程”会优先于“低优先级线程”执行。
-java中有两种线程：**`用户线程`**和**`守护线程`**。可以通过isDaemon()(setDaemon()可以设置是否守护线程)方法来区别它们：如果返回false，则说明该线程是“用户线程”；否则就是“守护线程”。
+java中有两种线程： **`用户线程`** 和 **`守护线程`** 。可以通过isDaemon()(setDaemon()可以设置是否守护线程)方法来区别它们：如果返回false，则说明该线程是“用户线程”；否则就是“守护线程”。
 守护线程的优先级比较低，用于为系统中的其它对象和线程提供服务。
 用户线程一般用户执行用户级任务，而守护线程也就是“后台线程”，一般用来执行后台任务。需要注意的是：Java虚拟机在只有守护进程运行时退出。
 **当设置了某几个线程的优先级后，几个不同优先级的线程根据时间片轮循调度并发执行**

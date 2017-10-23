@@ -19,9 +19,10 @@ mainLock是互斥锁，通过mainLock实现了对线程池的互斥访问。
 4. corePoolSize和maximumPoolSize
 corePoolSize是"核心池大小"，maximumPoolSize是"最大池大小"。它们的作用是调整"线程池中实际运行的线程的数量"。
 例如，当新任务提交给线程池时(通过execute方法)。
-    -- 如果此时，线程池中运行的线程数量< corePoolSize，则创建新线程来处理请求。
-    -- 如果此时，线程池中运行的线程数量> corePoolSize，但是却< mumPoolSize；则仅当阻塞队列满时才创建新线程。
-如果设置的 corePoolSize 和 maximumPoolSize 相同，则创建了固定大小的线程池。如果将 maximumPoolSize 设置为基本的无界值（如 Integer.MAX_VALUE），则允许池适应任意数量的并发任务。在大多数情况下，核心池大小和最大池大小的值是在创建线程池设置的；但是，也可以使用 setCorePoolSize(int) 和 setMaximumPoolSize(int) 进行动态更改。
+ - 如果此时，线程池中运行的线程数量< corePoolSize，则创建新线程来处理请求。
+ - 如果此时，线程池中运行的线程数量> corePoolSize，但是却< mumPoolSize；则仅当阻塞队列满时才创建新线程。
+
+如果设置的corePoolSize和maximumPoolSize相同，则创建了固定大小的线程池。如果将maximumPoolSize设置为基本的无界值（如 Integer.MAX_VALUE），则允许池适应任意数量的并发任务。在大多数情况下，核心池大小和最大池大小的值是在创建线程池设置的；但是，也可以使用 setCorePoolSize(int) 和 setMaximumPoolSize(int) 进行动态更改。
 
 5. poolSize
 poolSize是当前线程池的实际大小，即线程池中任务的数量。
@@ -122,9 +123,9 @@ public void execute(Runnable command) {
 }
 ```
 execute()的作用是将任务添加到线程池中执行。它会分为3种情况进行处理：
->情况1 -- 如果"线程池中任务数量" < "核心池大小"时，即线程池中少于corePoolSize个任务；此时就新建一个线程，并将该任务添加到线程中进行执行。
->情况2 -- 如果"线程池中任务数量" >= "核心池大小"，并且"线程池是允许状态"；此时，则将任务添加到阻塞队列中阻塞等待。在该情况下，会再次确认"线程池的状态"，如果"第2次读到的线程池状态"和"第1次读到的线程池状态"不同，则从阻塞队列中删除该任务。
->情况3 -- 非以上两种情况。在这种情况下，尝试新建一个线程，并将该任务添加到线程中进行执行。如果执行失败，则通过reject()拒绝该任务。
+>1. 情况1 -- 如果"线程池中任务数量" < "核心池大小"时，即线程池中少于corePoolSize个任务；此时就新建一个线程，并将该任务添加到线程中进行执行。
+>2. 情况2 -- 如果"线程池中任务数量" >= "核心池大小"，并且"线程池是允许状态"；此时，则将任务添加到阻塞队列中阻塞等待。在该情况下，会再次确认"线程池的状态"，如果"第2次读到的线程池状态"和"第1次读到的线程池状态"不同，则从阻塞队列中删除该任务。
+>3. 情况3 -- 非以上两种情况。在这种情况下，尝试新建一个线程，并将该任务添加到线程中进行执行。如果执行失败，则通过reject()拒绝该任务。
 
 ##### addWorker()
 addWorker(Runnable firstTask, boolean core) 的作用是将任务(firstTask)添加到线程池中，并启动该任务。
