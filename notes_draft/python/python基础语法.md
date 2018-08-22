@@ -20,7 +20,7 @@ Python中编写中文代码需加入# -\*- coding: UTF-8 -*- 或者 #coding=utf-
 #coding=utf-8
 # -\*- coding: UTF-8 -*-
 #!/usr/bin/python
-print "你好，世界";
+print "你好，世界"
 ```
 ### Python保留字符
 ![](http://static.tmaczhao.cn/images/python/python%E4%BF%9D%E7%95%99%E5%AD%97.png)
