@@ -22,8 +22,8 @@ worker_cpu_affinity 0001 0010 0100 1000
 worker_rlimit_nofile 655350
 
 #全局错误日志定义类型，多个等级可并存，[ debug | info | notice | warn | error | crit ]，从左到右错误信息越来越少；此指令可以在全局、http、server、location块中配置）
-error_log /var/log/nginx/error.log notice;
-error_log /var/log/nginx/error.log info;
+error_log /var/log/nginx/error_notice.log notice;
+error_log /var/log/nginx/error_info.log info;
 
 #Nginx进程文件
 pid /var/run/nginx.pid;

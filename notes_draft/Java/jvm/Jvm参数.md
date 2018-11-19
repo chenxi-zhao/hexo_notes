@@ -34,6 +34,7 @@
 -XX:NumberOfGClogFiles=1  GC日志文件的循环数目 (Since Java)
 -XX:GCLogFileSize=1M  控制GC日志文件的大小 (Since Java)
 
+-XX:+PrintCommandLineFlagsjvm参数可查看默认设置收集器类型
 >-XX:+PrintGC包含-verbose:gc
 -XX:+PrintGCDetails //包含-XX:+PrintGC
 只要设置-XX:+PrintGCDetails 就会自动带上-verbose:gc和-XX:+PrintGC
@@ -45,13 +46,13 @@
 
 -Xmx：最大堆大小，默认(MaxHeapFreeRatio参数可以调整)GC后空余堆内存比例大于70%时，JVM会减少堆直到-Xms的最小限制
 
--Xmn：新生代的内存空间大小，注意：此处的大小是（eden+ 2 survivor space)。与jmap -heap中显示的New gen是不同的。整个堆大小=新生代大小+老生代大小。在保证堆大小不变的情况下，增大新生代后，将会减小老生代大小。此值对系统性能影响较大，Sun官方推荐配置为整个堆的3/8。
+-Xmn：新生代的内存空间大小，注意：此处的大小是（eden+ 2 survivor space)。与jmap -heap中显示的New gen是不同的。整个堆大小=新生代大小+老年代大小。在保证堆大小不变的情况下，增大新生代后，将会减小老年代大小。此值对系统性能影响较大，Sun官方推荐配置为整个堆的3/8。
 
 -XX:NewSize/-XX:MaxNewSize
 
 -XX:NewRation：老年代（不包括永久代）和新生代（Eden+2*survivor）的比值，4则表示新生代：老年代=1:4
 
--XX:SurvivorRatio：新生代中Eden区域与Survivor区域的容量比值，默认值为8。两个Survivor区与一个Eden区的比值为2:8，一个Survivor区占整个年轻代的1/10。
+-XX:SurvivorRatio：新生代中Eden区域与Survivor区域的容量比值，默认值为8。两个Survivor区与一个Eden区的比值为2:8，一个Survivor区占整个新生代的1/10。
 
 -XX:YoungGenerationSizeIncrement=（Y）：YoungGen分配新内存时的增长比例，默认是20%
 -XX:TenuredGenerationSizeIncrement=（Y）：TenuredGen空间分配新内存时的增长比例，默认是20%
@@ -70,9 +71,9 @@
 -XX:+ScavengeBeforeFullGC：新生代GC优先于Full GC执行。
 -XX:+CollectGen0First：FullGC时是否先YGC，默认false
 -XX:TargetSurvivorRatio=90：允许90%的Survivor空间被占用（默认为50%）。提高对于Survivor的使用率—超过就会尝试垃圾回收。
--XX:PretenureSizeThreshold：对象超过多大是直接在旧生代分配默认为0，单位字节，新生代采用Parallel Scavenge GC时无效，另一种直接在旧生代分配的情况是大的数组对象，且数组中无外部引用对象。
+-XX:PretenureSizeThreshold：对象超过多大是直接在老年代分配默认为0，单位字节，新生代采用Parallel Scavenge GC时无效，另一种直接在老年代分配的情况是大的数组对象，且数组中无外部引用对象。
 
--XX:MaxTenuringThreshold：垃圾最大年龄，如果设置为0的话，则年轻代对象不经过Survivor区，直接进入年老代。对于年老代比较多的应用，可以提高效率。如果将此值设置为一个较大值，则年轻代对象会在Survivor区进行多次复制，这样可以增加对象再年轻代的存活 时间，增加在年轻代即被回收的概率该参数只有在串行GC时才有效。
+-XX:MaxTenuringThreshold：垃圾最大年龄，如果设置为0的话，则新生代对象不经过Survivor区，直接进入老年代。对于老年代比较多的应用，可以提高效率。如果将此值设置为一个较大值，则新生代对象会在Survivor区进行多次复制，这样可以增加对象再新生代的存活 时间，增加在新生代即被回收的概率该参数只有在串行GC时才有效。
 
 -XX:LargePageSizeInBytes：内存页的大小不可设置过大，会影响Perm的大小（128M）
 -XX:TLABWasteTargetPercent：TLAB占eden区的百分比，默认1%
@@ -100,17 +101,17 @@
 #### ParNew(Serial收集器多线程版本)
 >默认新生代并行、老年代和持久代串行，新生代复制算法，老年代标记压缩
 
--XX:+UseParNewGC：设置年轻代为并行收集，可与CMS收集同时使用，JDK5.0以上，JVM会根据系统配置自行设置，所以无需再设置此值
+-XX:+UseParNewGC：设置新生代为并行收集，可与CMS收集同时使用，JDK5.0以上，JVM会根据系统配置自行设置，所以无需再设置此值
 
 #### Parallel Scavenge/Old
 >默认新生代并行、老年代串行，新生代复制算法，老年代标记压缩
 
--XX:+UseParallelGC：选择垃圾收集器为并行收集器。此配置仅对年轻代有效。即上述配置下，年轻代使用并发收集，而年老代仍旧使用串行收集。
--XX:+UseParallelOldGC：年老代垃圾收集方式为并行收集（Parallel Compacting)，这个是JAVA 6出现的参数选项
+-XX:+UseParallelGC：选择垃圾收集器为并行收集器。此配置仅对新生代有效。即上述配置下，新生代使用并发收集，而老年代仍旧使用串行收集。
+-XX:+UseParallelOldGC：老年代垃圾收集方式为并行收集（Parallel Compacting)，这个是JAVA 6出现的参数选项
 
--XX:+UseAdaptiveSizePolicy：自动选择年轻代区大小和相应的Survivor区比例，设置此选项后，并行收集器会自动选择年轻代区大小和相应的Survivor区比例，以达到目标系统规定的最低相应时间或者收集频率等，此值建议使用并行收集器时，一直打开。
+-XX:+UseAdaptiveSizePolicy：自动选择新生代区大小和相应的Survivor区比例，设置此选项后，并行收集器会自动选择新生代区大小和相应的Survivor区比例，以达到目标系统规定的最低相应时间或者收集频率等，此值建议使用并行收集器时，一直打开。
 
--XX:MaxGCPauseMillis：每次年轻代垃圾回收的最长时间，如果无法满足此时间，JVM会自动调整年轻代大小，以满足此值。
+-XX:MaxGCPauseMillis：每次新生代垃圾回收的最长时间，如果无法满足此时间，JVM会自动调整新生代大小，以满足此值。
 
 -XX:GCTimeRatio：设置垃圾回收时间占程序运行时间的百分比，公式为1/(1+n)，默认99
 
@@ -145,7 +146,7 @@
 -XX:ParallelCMSThreads：设置CMS线程数量，一般情况下CPU数量
 
 -XX:CMSFullGCsBeforeCompaction：多少次后进行内存整理，由于并发收集器不对内存空间进行压缩，整理，所以运行一段时间以后会产生"碎片"，使得运行效率降低。此值设置运行多少次GC以后对内存空间进行压缩，整理。
--XX+UseCMSCompactAtFullCollection：在FULL GC的时候，对年老代的压缩，CMS是不会移动内存的，因此，这个非常容易产生碎片，导致内存不够用，因此，内存的压缩这个时候就会被启用。增加这个参数是个好习惯。可能会影响性能,但是可以消除碎片
+-XX+UseCMSCompactAtFullCollection：在FULL GC的时候，对老年代的压缩，CMS是不会移动内存的，因此，这个非常容易产生碎片，导致内存不够用，因此，内存的压缩这个时候就会被启用。增加这个参数是个好习惯。可能会影响性能,但是可以消除碎片
 
 -XX:CMSInitiatingOccupancyFraction=70：使用cms作为垃圾回收，使用70％后开始CMS收集，为了保证不出现promotion failed错误,该值的设置需要满足CMSInitiatingOccupancyFraction计算公式
 -XX:CMSInitiatingPermOccupancyFraction：设置Perm Gen使用到达多少比率时触发
@@ -163,15 +164,23 @@
 -XX:+UseConcMarkSweepGC | ParNew 并行GC | CMS并发GC，当出现“Concurrent Mode Failure”时，采用Serial Old串行GC |
 -XX:+UseConcMarkSweepGC -XX:+UseParNewGC | Serial串行GC | 同上 |
 
+>jdk1.7 默认垃圾收集器Parallel Scavenge（新生代）+Parallel Old（老年代）
+jdk1.8 默认垃圾收集器Parallel Scavenge（新生代）+Parallel Old（老年代）
+jdk1.9 默认垃圾收集器G1
+
+
 ### G1收集器
 G1（Garbage-First）收集器是现今收集器技术的最新成果之一，之前一直处于实验阶段，直到jdk7u4之后，才正式作为商用的收集器。
 
 与前几个收集器相比，G1收集器有以下特点：
 - 并行与并发
-- 分代收集（仍然保留了分代的概念）
+- 分代收集（仍然保留了分代的概念，但不需要对每个代进行分别设置，不用担心各代内存是否够用）
 - 空间整合（整体上属于“标记-整理”算法，不会导致空间碎片）
 - 可预测的停顿（比CMS更先进的地方在于能让使用者明确指定一个长度为M毫秒的时间片段内，消耗在垃圾收集上的时间不得超过N毫秒）
-此外，G1收集器将Java堆划分为多个大小相等的Region（独立区域），新生代与老年代都是一部分Region的集合，G1的收集范围则是这一个个Region
+此外，G1收集器将Java堆划分为多个大小相等的Region（独立区域），新生代与老年代都是一部分Region的集合，G1的收集范围则是这一个个Region。
+![](http://static.open-open.com/lib/uploadImg/20161222/20161222153407_471.png)
+在G1中，还有一种特殊的区域，叫Humongous区域。 如果一个对象占用的空间超过了分区容量50%以上，G1收集器就认为这是一个巨型对象。这些巨型对象，默认直接会被分配在年老代，但是如果它是一个短期存在的巨型对象，就会对垃圾收集器造成负面影响。为了解决这个问题，G1划分了一个Humongous区，它用来专门存放巨型对象。如果一个H区装不下一个巨型对象，那么G1会寻找连续的H分区来存储。为了能找到连续的H区，有时候不得不启动Full GC。
+
 
 G1的工作过程如下：
 - 初始标记（Initial Marking）
@@ -180,6 +189,25 @@ G1的工作过程如下：
 - 筛选回收（Live Data Counting and Evacuation）
 初始标记阶段仅仅只是标记一下GC Roots能够直接关联的对象，并且修改TAMS（Next Top at Mark Start）的值，让下一阶段的用户程序并发运行的时候，能在正确可用的Region中创建对象，这个阶段需要暂停线程。并发标记阶段从GC Roots进行可达性分析，找出存活的对象，这个阶段与用户线程并发执行的。最终标记阶段则是修正在并发标记阶段因为用户程序的并发执行而导致标记产生变动的那一部分记录，这部分记录被保存在Remembered Set Logs中，最终标记阶段再把Logs中的记录合并到Remembered Set中，这个阶段是并行执行的，仍然需要暂停用户线程。最后在筛选阶段首先对各个Region的回收价值和成本进行排序，根据用户所期望的GC停顿时间制定回收计划。整个执行过成功如下：
 ![](http://7xkjk9.com1.z0.glb.clouddn.com/jvm-13.jpg)
+
+[深入理解 Java G1 垃圾收集器](https://www.cnblogs.com/ASPNET2008/p/6496481.html)
+
+
+#### 参数配置
+>-XX:+UseG1GC -Xmx32g -XX:MaxGCPauseMillis=200
+其中-XX:+UseG1GC为开启G1垃圾收集器，-Xmx32g 设计堆内存的最大内存为32G，-XX:MaxGCPauseMillis=200设置GC的最大暂停时间为200ms。G1将新生代，老年代的物理空间划分取消了。
+
+
+### 对象分配策略
+说起大对象的分配，我们不得不谈谈对象的分配策略。它分为3个阶段：
+ - TLAB(Thread Local Allocation Buffer)线程本地分配缓冲区
+ - Eden区中分配
+ - Humongous区分配
+TLAB为线程本地分配缓冲区，它的目的为了使对象尽可能快的分配出来。如果对象在一个共享的空间中分配，我们需要采用一些同步机制来管理这些空间内的空闲空间指针。在Eden空间中，每一个线程都有一个固定的分区用于分配对象，即一个TLAB。分配对象时，线程之间不再需要进行任何的同步。
+
+对TLAB空间中无法分配的对象，JVM会尝试在Eden空间中进行分配。如果Eden空间无法容纳该对象，就只能在老年代中进行分配空间。
+
+
 
 ### GC算法
 - 引用计数法：为对象设置引用计数器，计数为零的时候可回收（引用有加法减法、影响性能；循环引用难处理）（java未使用）
