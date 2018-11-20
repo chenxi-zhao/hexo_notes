@@ -135,7 +135,7 @@ public class ConditionTest2 {
 
 4. 线程2，因为线程1释放锁的关系，被唤醒，并判断可以获取锁，于是线程2获取锁，加入到AQS的等待队列中。
 
-5.  线程2调用signal方法，这个时候Condition的等待队列中只有线程1一个节点，于是它被取出来，并被加入到AQS的等待队列中。<font color="red">注意，这个时候，线程1 并没有被唤醒。</font>
+5.  线程2调用signal方法，这个时候Condition的等待队列中只有线程1一个节点，于是它被取出来，并被加入到AQS的等待队列中。<font color="red">注意，这个时候，线程1并没有被唤醒。</font>
 
 6. signal方法执行完毕，线程2调用reentrantLock.unLock()方法，释放锁。这个时候因为AQS中只有线程1，于是，AQS释放锁后按从头到尾的顺序唤醒线程时，线程1被唤醒，于是线程1恢复执行。
 
@@ -148,7 +148,7 @@ LockSupport中的park()和unpark()的作用分别是阻塞线程和解除阻塞�
 park()和unpark()调用的是unsafe中的方法，应该直接调用了JNI，原理就不在深究
 #### LockSupport函数列表
 ```java
-// 返回提供给最近一次尚未解除阻塞的 park 方法调用的 blocker 对象，如果该调用不受阻塞，则返回 null。
+// 返回提供给最近一次尚未解除阻塞的park方法调用的blocker对象，如果该调用不受阻塞，则返回null。
 static Object getBlocker(Thread t)
 // 为了线程调度，禁用当前线程，除非许可可用。
 static void park()

@@ -35,13 +35,13 @@ AtomicLong(long initialValue)
 final void set(long newValue)
 // 获取当前值
 final long get()
-// 以原子方式将当前值减 1，并返回减1后的值。等价于“--num”
+// 以原子方式将当前值减1，并返回减1后的值。等价于“--num”
 final long decrementAndGet()
-// 以原子方式将当前值减 1，并返回减1前的值。等价于“num--”
+// 以原子方式将当前值减1，并返回减1前的值。等价于“num--”
 final long getAndDecrement()
-// 以原子方式将当前值加 1，并返回加1后的值。等价于“++num”
+// 以原子方式将当前值加1，并返回加1后的值。等价于“++num”
 final long incrementAndGet()
-// 以原子方式将当前值加 1，并返回加1前的值。等价于“num++”
+// 以原子方式将当前值加1，并返回加1前的值。等价于“num++”
 final long getAndIncrement()
 // 以原子方式将delta与当前值相加，并返回相加后的值。
 final long addAndGet(long delta)
@@ -55,13 +55,13 @@ final long getAndSet(long newValue)
 int intValue()
 // 获取当前值对应的long值
 long longValue()
-// 以 float 形式返回当前值
+// 以float形式返回当前值
 float floatValue()
-// 以 double 形式返回当前值
+// 以double形式返回当前值
 double doubleValue()
 // 最后设置为给定值。延时设置变量值，这个等价于set()方法，但是由于字段是volatile类型的，因此次字段的修改会比普通字段（非volatile字段）有稍微的性能延时（尽管可以忽略），所以如果不是想立即读取设置的新值，允许在“后台”修改值，那么此方法就很有用。如果还是难以理解，这里就类似于启动一个后台线程如执行修改新值的任务，原线程就不等待修改结果立即返回（这种解释其实是不正确的，但是可以这么理解）。
 final void lazySet(long newValue)
-// 如果当前值 == 预期值，则以原子方式将该设置为给定的更新值。JSR规范中说：以原子方式读取和有条件地写入变量但不 创建任何 happen-before 排序，因此不提供与除 weakCompareAndSet 目标外任何变量以前或后续读取或写入操作有关的任何保证。大意就是说调用weakCompareAndSet时并不能保证不存在happen-before的发生（也就是可能存在指令重排序导致此操作失败）。但是从Java源码来看，其实此方法并没有实现JSR规范的要求，最后效果和compareAndSet是等效的，都调用了unsafe.compareAndSwapInt()完成操作。
+// 如果当前值 == 预期值，则以原子方式将该设置为给定的更新值。JSR规范中说：以原子方式读取和有条件地写入变量但不创建任何happen-before排序，因此不提供与除weakCompareAndSet目标外任何变量以前或后续读取或写入操作有关的任何保证。大意就是说调用weakCompareAndSet时并不能保证不存在happen-before的发生（也就是可能存在指令重排序导致此操作失败）。但是从Java源码来看，其实此方法并没有实现JSR规范的要求，最后效果和compareAndSet是等效的，都调用了unsafe.compareAndSwapInt()完成操作。
 final boolean weakCompareAndSet(long expect, long update)
 ```
 
@@ -69,33 +69,33 @@ final boolean weakCompareAndSet(long expect, long update)
 ### AtomicLongArray
 AtomicLongArray的作用是对"长整形数组"进行原子操作。
 ```java
-// 创建给定长度的新 AtomicLongArray。
+// 创建给定长度的新AtomicLongArray。
 AtomicLongArray(int length)
-// 创建与给定数组具有相同长度的新 AtomicLongArray，并从给定数组复制其所有元素。
+// 创建与给定数组具有相同长度的新AtomicLongArray，并从给定数组复制其所有元素。
 AtomicLongArray(long[] array)
-// 以原子方式将给定值添加到索引 i 的元素。
+// 以原子方式将给定值添加到索引i的元素。
 long addAndGet(int i, long delta)
 // 如果当前值 == 预期值，则以原子方式将该值设置为给定的更新值。
 boolean compareAndSet(int i, long expect, long update)
-// 以原子方式将索引 i 的元素减1。
+// 以原子方式将索引i的元素减1。
 long decrementAndGet(int i)
-// 获取位置 i 的当前值。
+// 获取位置i的当前值。
 long get(int i)
-// 以原子方式将给定值与索引 i 的元素相加。
+// 以原子方式将给定值与索引i的元素相加。
 long getAndAdd(int i, long delta)
-// 以原子方式将索引 i 的元素减 1。
+// 以原子方式将索引i的元素减1。
 long getAndDecrement(int i)
-// 以原子方式将索引 i 的元素加 1。
+// 以原子方式将索引i的元素加1。
 long getAndIncrement(int i)
-// 以原子方式将位置 i 的元素设置为给定值，并返回旧值。
+// 以原子方式将位置i的元素设置为给定值，并返回旧值。
 long getAndSet(int i, long newValue)
-// 以原子方式将索引 i 的元素加1。
+// 以原子方式将索引i的元素加1。
 long incrementAndGet(int i)
-// 最终将位置 i 的元素设置为给定值。
+// 最终将位置i的元素设置为给定值。
 void lazySet(int i, long newValue)
 // 返回该数组的长度。
 int length()
-// 将位置 i 的元素设置为给定值。
+// 将位置i的元素设置为给定值。
 void set(int i, long newValue)
 // 返回数组当前值的字符串表示形式。
 String toString()
@@ -109,9 +109,9 @@ AtomicReference是作用是对"对象"进行原子操作。
 // volatile类型
 private volatile V value;
 
-// 使用 null 初始值创建新的 AtomicReference。
+// 使用null初始值创建新的AtomicReference。
 AtomicReference()
-// 使用给定的初始值创建新的 AtomicReference。
+// 使用给定的初始值创建新的AtomicReference。
 AtomicReference(V initialValue)
 // 如果当前值 == 预期值，则以原子方式将该值设置为给定的更新值。
 boolean compareAndSet(V expect, V update)
@@ -146,19 +146,19 @@ protected AtomicLongFieldUpdater()
 long addAndGet(T obj, long delta)
 // 如果当前值 == 预期值，则以原子方式将此更新器所管理的给定对象的字段设置为给定的更新值。
 abstract boolean compareAndSet(T obj, long expect, long update)
-// 以原子方式将此更新器管理的给定对象字段当前值减 1。
+// 以原子方式将此更新器管理的给定对象字段当前值减1。
 long decrementAndGet(T obj)
 // 获取此更新器管理的在给定对象的字段中保持的当前值。
 abstract long get(T obj)
 // 以原子方式将给定值添加到此更新器管理的给定对象的字段的当前值。
 long getAndAdd(T obj, long delta)
-// 以原子方式将此更新器管理的给定对象字段当前值减 1。
+// 以原子方式将此更新器管理的给定对象字段当前值减1。
 long getAndDecrement(T obj)
-// 以原子方式将此更新器管理的给定对象字段的当前值加 1。
+// 以原子方式将此更新器管理的给定对象字段的当前值加1。
 long getAndIncrement(T obj)
 // 将此更新器管理的给定对象的字段以原子方式设置为给定值，并返回旧值。
 long getAndSet(T obj, long newValue)
-// 以原子方式将此更新器管理的给定对象字段当前值加 1。
+// 以原子方式将此更新器管理的给定对象字段当前值加1。
 long incrementAndGet(T obj)
 // 最后将此更新器管理的给定对象的字段设置为给定更新值。
 abstract void lazySet(T obj, long newValue)
@@ -241,7 +241,7 @@ happens-before完整规则：
 8. 如果A动作happens-before于B动作，而B动作happens-before与C动作，那么A动作happens-before于C动作。
 
 
-### CAS 操作
+### CAS操作
 >所谓乐观锁就是，每次不加锁而是假设没有冲突而去完成某项操作，如果因为冲突失败就重试，直到成功为止。
 
 乐观锁用到的机制主要就有CAS，Compare and Swap。
@@ -251,7 +251,7 @@ CAS有3个操作数，内存值V，旧的预期值A，要修改的新值B。当�
 <font color="red">**非阻塞算法 （nonblocking algorithms）**</font>
 >一个线程的失败或者挂起不应该影响其他线程的失败或挂起的算法。
 
-现代的CPU提供了特殊的指令，可以自动更新共享数据，而且能够检测到其他线程的干扰，而 compareAndSet() 就用这些代替了锁定。
+现代的CPU提供了特殊的指令，可以自动更新共享数据，而且能够检测到其他线程的干扰，而compareAndSet() 就用这些代替了锁定。
 
 拿出AtomicInteger来研究在没有锁的情况下是如何做到数据正确性的。
 

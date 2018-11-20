@@ -49,7 +49,7 @@ class MyThread implements Runnable{
 
 ### Thread中的start和run
 >start():它的作用是启动一个新线程，新线程会执行相应的run()方法。start()不能被重复调用。
-run(): run()等同于可重复调用的普通方法。单独调用run()，会在当前线程中执行run()方法，但是 并不会启动新线程！
+run(): run()等同于可重复调用的普通方法。单独调用run()，会在当前线程中执行run()方法，但是并不会启动新线程！
 
 start通过**`native void start0()`**方法启动一个新线程来调用run()方法，run()方法中直接调用Runable对象的run()方法，不建立新线程，Thread源码（1.7）如下
 ```java
@@ -80,7 +80,7 @@ public void run() {
 }
 ```
 
-### synchronized 关键字
+### synchronized关键字
 #### synchronized原理
 >**java中，每一个对象有且仅有一个同步锁。这也意味着，同步锁是依赖于对象而存在。**
 **当我们调用某对象的synchronized方法时，就获取了该对象的同步锁。**synchronized(obj)获取了“obj”的同步锁。
@@ -118,7 +118,7 @@ pulbic class Something {
 1. x.isSyncA()与x.isSyncB() 不能同时被访问。因为isSyncA()和isSyncB()都是访问同一个对象的同步锁
 2. x.isSyncA()与y.isSyncA() 可以同时被访问。因为访问的不是同一个对象的同步锁
 3. x.cSyncA()与y.cSyncB() 不能同时被访问。cSyncA()和cSyncB()都是static类型，两个方法共用Something同步锁
-4. x.isSyncA()与Something.cSyncA 可以同时被访问。因为isSyncA()是实例方法，x.isSyncA()使用的是对象x的锁；而cSyncA()是静态方法，Something.cSyncA()可以理解对使用的是“类的锁”
+4. x.isSyncA()与Something.cSyncA可以同时被访问。因为isSyncA()是实例方法，x.isSyncA()使用的是对象x的锁；而cSyncA()是静态方法，Something.cSyncA()可以理解对使用的是“类的锁”
 
 
 ### 线程等待和唤醒
@@ -127,12 +127,12 @@ pulbic class Something {
 
 >notifyAll() -- 唤醒在此对象监视器上等待的所有线程。
 
->wait() -- 让当前线程处于“等待(阻塞)状态”，直到其他线程调用此对象的 notify() 方法或 notifyAll() 方法，当前线程被唤醒(进入“就绪状态”)。
+>wait() -- 让当前线程处于“等待(阻塞)状态”，直到其他线程调用此对象的notify() 方法或notifyAll() 方法，当前线程被唤醒(进入“就绪状态”)。
 
->wait(long timeout) -- 让当前线程处于“等待(阻塞)状态”，直到其他线程调用此对象的 notify() 方法或
+>wait(long timeout) -- 让当前线程处于“等待(阻塞)状态”，直到其他线程调用此对象的notify() 方法或
 notifyAll() 方法，或者超过指定的时间量，当前线程被唤醒(进入“就绪状态”)。
 
->wait(long timeout, int nanos) -- 让当前线程处于“等待(阻塞)状态”，直到其他线程调用此对象的 notify() 方法或 notifyAll() 方法，或者其他某个线程中断当前线程，或者已超过某个实际时间量，当前线程被唤醒(进入就绪状态)。
+>wait(long timeout, int nanos) -- 让当前线程处于“等待(阻塞)状态”，直到其他线程调用此对象的notify() 方法或notifyAll() 方法，或者其他某个线程中断当前线程，或者已超过某个实际时间量，当前线程被唤醒(进入就绪状态)。
 
 #### 为什么notify(), wait()等函数定义在Object中，而不是Thread中
 Object中的wait(), notify()等函数，和synchronized一样，会对“对象的同步锁”进行操作。
@@ -315,10 +315,10 @@ public void run() {
     }
 }
 ```
-#### interrupted() 和 isInterrupted()的区别
-interrupted() 和 isInterrupted()都能够用于检测对象的“中断标记”。
+#### interrupted() 和isInterrupted()的区别
+interrupted() 和isInterrupted()都能够用于检测对象的“中断标记”。
 区别是，interrupted()除了返回中断标记之外，它还会清除中断标记(即将中断标记设为false)；而isInterrupted()仅仅返回中断标记。
->PS. 如果该线程在一个Selector（java.nio.channels.Selector）中受阻，则该线程的中断状态将被设置，它将立即从选择操作返回，并可能带有一个非零值，就好像调用了选择器的 wakeup 方法一样。
+>PS. 如果该线程在一个Selector（java.nio.channels.Selector）中受阻，则该线程的中断状态将被设置，它将立即从选择操作返回，并可能带有一个非零值，就好像调用了选择器的wakeup方法一样。
 
 
 ### 线程优先级和守护线程
@@ -342,7 +342,7 @@ class Depot {
 
     public synchronized void produce(int val) {
         try {
-             // left 表示“想要生产的数量”(有可能生产量太多，需多此生产)
+             // left表示“想要生产的数量”(有可能生产量太多，需多此生产)
             int left = val;
             while (left > 0) {
                 // 库存已满时，等待“消费者”消费产品。
@@ -365,7 +365,7 @@ class Depot {
 
     public synchronized void consume(int val) {
         try {
-            // left 表示“客户要消费数量”(有可能消费量太大，库存不够，需多此消费)
+            // left表示“客户要消费数量”(有可能消费量太大，库存不够，需多此消费)
             int left = val;
             while (left > 0) {
                 // 库存为0时，等待“生产者”生产产品。

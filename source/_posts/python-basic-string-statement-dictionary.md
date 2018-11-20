@@ -40,11 +40,11 @@ python中三引号可以将复杂的字符串进行复制:
 [python字符串内建](http://www.runoob.com/python/python-strings.html)
 - string.capitalize() 首字母大写
 - string.count(str, beg=0, end=len(string)) 返回beg与end之间的str在string中出现的次数
-- string.decode(encoding='UTF-8', errors='strict') 以 encoding指定的编码格式解码string，如果出错默认报一个 ValueError 的 异 常，除非errors指定的是'ignore'或 者'replace'
-- string.encode(encoding='UTF-8', errors='strict') 以 encoding 指定的编码格式编码 string
+- string.decode(encoding='UTF-8', errors='strict') 以encoding指定的编码格式解码string，如果出错默认报一个ValueError的异常，除非errors指定的是'ignore'或者'replace'
+- string.encode(encoding='UTF-8', errors='strict') 以encoding指定的编码格式编码string
 - string.endswith(obj, beg=0, end=len(string))
 - string.find(str, beg=0, end=len(string)) 没有返回-1
-- string.isalnum() 如果string至少有一个字符并且所有字符都是字母或数字则返回 True,否则返回 False
+- string.isalnum() 如果string至少有一个字符并且所有字符都是字母或数字则返回True,否则返回False
 - ......
 
 
@@ -146,7 +146,7 @@ test1 = [1, 2, 3, 4, 5, 6]
 aTuple = (123, 'xyz', 'zara', 'abc')
 #
 print(len(test1))  # 长度
-print(max(test1))  # 最大值 最小值min
+print(max(test1))  # 最大值最小值min
 print(list(aTuple))  # tuple转list
 #
 test1.append(7)  # 在列表末尾添加新的对象
@@ -163,9 +163,9 @@ test1.reverse()
 # test1.sort()对原列表进行排序
 ```
 
-### Tuple特性与List相似 但不能更新
+### Tuple特性与List相似但不能更新
 
-### Python 字典(Dictionary)
+### Python字典(Dictionary)
 
 字典是另一种可变容器模型，且可存储任意类型对象，如其他容器模型。
 字典由键和对应值成对组成。字典也被称作关联数组或哈希表。基本语法如下：

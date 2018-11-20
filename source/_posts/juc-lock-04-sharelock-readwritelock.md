@@ -23,17 +23,17 @@ Lock writeLock()
 ```
 ### ReentrantReadWriteLock函数列表
 ```java
-// 创建一个新的 ReentrantReadWriteLock，默认是采用“非公平策略”。
+// 创建一个新的ReentrantReadWriteLock，默认是采用“非公平策略”。
 ReentrantReadWriteLock()
-// 创建一个新的 ReentrantReadWriteLock，fair是“公平策略”。fair为true，意味着公平策略；否则，意味着非公平策略。
+// 创建一个新的ReentrantReadWriteLock，fair是“公平策略”。fair为true，意味着公平策略；否则，意味着非公平策略。
 ReentrantReadWriteLock(boolean fair)
-// 返回当前拥有写入锁的线程，如果没有这样的线程，则返回 null。
+// 返回当前拥有写入锁的线程，如果没有这样的线程，则返回null。
 protected Thread getOwner()
-// 返回一个 collection，它包含可能正在等待获取读取锁的线程。
+// 返回一个collection，它包含可能正在等待获取读取锁的线程。
 protected Collection<Thread> getQueuedReaderThreads()
-// 返回一个 collection，它包含可能正在等待获取读取或写入锁的线程。
+// 返回一个collection，它包含可能正在等待获取读取或写入锁的线程。
 protected Collection<Thread> getQueuedThreads()
-// 返回一个 collection，它包含可能正在等待获取写入锁的线程。
+// 返回一个collection，它包含可能正在等待获取写入锁的线程。
 protected Collection<Thread> getQueuedWriterThreads()
 // 返回等待获取读取或写入锁的线程估计数目。
 int getQueueLength()
@@ -41,7 +41,7 @@ int getQueueLength()
 int getReadHoldCount()
 // 查询为此锁保持的读取锁数量。
 int getReadLockCount()
-// 返回一个 collection，它包含可能正在等待与写入锁相关的给定条件的那些线程。
+// 返回一个collection，它包含可能正在等待与写入锁相关的给定条件的那些线程。
 protected Collection<Thread> getWaitingThreads(Condition condition)
 // 返回正等待与写入锁相关的给定条件的线程估计数目。
 int getWaitQueueLength(Condition condition)
@@ -53,7 +53,7 @@ boolean hasQueuedThread(Thread thread)
 boolean hasQueuedThreads()
 // 查询是否有些线程正在等待与写入锁有关的给定条件。
 boolean hasWaiters(Condition condition)
-// 如果此锁将公平性设置为 ture，则返回 true。
+// 如果此锁将公平性设置为ture，则返回true。
 boolean isFair()
 // 查询是否某个线程保持了写入锁。
 boolean isWriteLocked()
@@ -70,7 +70,7 @@ ReentrantReadWriteLock的UML类图如下：
 ![](https://static.tmaczhao.cn/images/5655a50f8ef3986bb52ded1bab729276.jpg)
 从中可以看出：
 1. ReentrantReadWriteLock实现了ReadWriteLock接口。ReadWriteLock是一个读写锁的接口，提供了"获取读锁的readLock()函数" 和 "获取写锁的writeLock()函数"。
-2. ReentrantReadWriteLock中包含：**sync对象**，**读锁readerLock**和**写锁writerLock**。读锁ReadLock和写锁WriteLock都实现了Lock接口。读锁ReadLock和写锁WriteLock中也都分别包含了"Sync对象"，它们的Sync对象和ReentrantReadWriteLock的Sync对象 是一样的，就是通过sync，读锁和写锁实现了对同一个对象的访问。
+2. ReentrantReadWriteLock中包含：**sync对象**，**读锁readerLock**和**写锁writerLock**。读锁ReadLock和写锁WriteLock都实现了Lock接口。读锁ReadLock和写锁WriteLock中也都分别包含了"Sync对象"，它们的Sync对象和ReentrantReadWriteLock的Sync对象是一样的，就是通过sync，读锁和写锁实现了对同一个对象的访问。
 3. 和"ReentrantLock"一样，sync是Sync类型；而且，Sync也是一个继承于AQS的抽象类。Sync也包括"公平锁"FairSync和"非公平锁"NonfairSync。sync对象是"FairSync"和"NonfairSync"中的一个，默认是"NonfairSync"。
 
 
@@ -112,7 +112,7 @@ public class ReadWriteLockTest1 {
         // 创建用户，并指定账户
         User user = new User("Tommy", myCount);
 
-        // 分别启动3个“读取账户金钱”的线程 和 3个“设置账户金钱”的线程
+        // 分别启动3个“读取账户金钱”的线程和3个“设置账户金钱”的线程
         for (int i=0; i<3; i++) {
             user.getCash();
             user.setCash((i+1)*1000);

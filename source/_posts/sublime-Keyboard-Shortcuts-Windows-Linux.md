@@ -4,7 +4,7 @@ date: 2016-04-28 14:41:39
 categories: tools
 tags: [sublime,快捷键,Shortcuts]
 ---
-### General 通用
+### General通用
 
 | Keypress | OSX Key | Command |
 | --- | --- |--- |
@@ -13,7 +13,7 @@ tags: [sublime,快捷键,Shortcuts]
 | Ctrl + Shift + Alt + P | ⌃ + ⇧ + P |Show scope in status bar |
 
 <!-- more -->
-### Editing 编辑
+### Editing编辑
 
 | Keypress | OSX Key | Command |
 | --- | --- |--- |
@@ -36,7 +36,7 @@ tags: [sublime,快捷键,Shortcuts]
 | Ctrl + KL| ⌘ + K, ⌘ + L | 转换为小写 |
 
 
-### Selected 选择
+### Selected选择
 
 | Keypress | OSX Key | Command |
 | --- | --- |--- |
@@ -55,7 +55,7 @@ tags: [sublime,快捷键,Shortcuts]
 | Ctrl + Alt + Down | - |向下添加多行光标，可同时编辑多行 |
 
 
-### Find/Replace 搜索
+### Find/Replace搜索
 
 | Keypress | OSX Key | Command |
 | --- | --- |--- |
@@ -68,7 +68,7 @@ tags: [sublime,快捷键,Shortcuts]
 | Ctrl + Shift + F | ⌘ + ⇧ + F | 多文件查找 |
 
 
-### Tabs 标签
+### Tabs标签
 
 | Keypress | OSX Key | Command |
 | --- | --- |--- |
@@ -79,7 +79,7 @@ tags: [sublime,快捷键,Shortcuts]
 | Alt + [NUM] | ⌘ + [NUM] | 按数字切换标签 |
 
 
-### Split window 分屏
+### Split window分屏
 
 | Keypress | OSX Key | Command |
 | --- | --- |--- |
@@ -94,7 +94,7 @@ tags: [sublime,快捷键,Shortcuts]
 | Ctrl + Shift + [NUM] | ⌃ + ⇧ + [NUM] | 移动文件到屏num |
 
 
-### Bookmarks 书签
+### Bookmarks书签
 
 | Keypress | OSX Key | Command |
 | --- | --- |--- |

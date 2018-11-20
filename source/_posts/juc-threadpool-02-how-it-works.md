@@ -29,7 +29,7 @@ corePoolSize是"核心池大小"，maximumPoolSize是"最大池大小"。它们�
 例如，当新任务提交给线程池时(通过execute方法)。
     -- 如果此时，线程池中运行的线程数量< corePoolSize，则创建新线程来处理请求。
     -- 如果此时，线程池中运行的线程数量> corePoolSize，但是却< mumPoolSize；则仅当阻塞队列满时才创建新线程。
-如果设置的 corePoolSize 和 maximumPoolSize 相同，则创建了固定大小的线程池。如果将 maximumPoolSize 设置为基本的无界值（如 Integer.MAX_VALUE），则允许池适应任意数量的并发任务。在大多数情况下，核心池大小和最大池大小的值是在创建线程池设置的；但是，也可以使用 setCorePoolSize(int) 和 setMaximumPoolSize(int) 进行动态更改。
+如果设置的corePoolSize和maximumPoolSize相同，则创建了固定大小的线程池。如果将maximumPoolSize设置为基本的无界值（如Integer.MAX_VALUE），则允许池适应任意数量的并发任务。在大多数情况下，核心池大小和最大池大小的值是在创建线程池设置的；但是，也可以使用setCorePoolSize(int) 和setMaximumPoolSize(int) 进行动态更改。
 
 5. poolSize
 poolSize是当前线程池的实际大小，即线程池中任务的数量。
@@ -188,7 +188,7 @@ public void shutdown() {
 
 线程池共包括4种拒绝策略，它们分别是：AbortPolicy, CallerRunsPolicy, DiscardOldestPolicy和DiscardPolicy。
 
-- AbortPolicy,当任务添加到线程池中被拒绝时，它将抛出 RejectedExecutionException 异常。
+- AbortPolicy,当任务添加到线程池中被拒绝时，它将抛出RejectedExecutionException异常。
 - CallerRunsPolicy,当任务添加到线程池中被拒绝时，会在线程池当前正在运行的Thread线程池中处理被拒绝的任务。
 - DiscardOldestPolicy,当任务添加到线程池中被拒绝时，线程池会放弃等待队列中最旧的未处理任务，然后将被拒绝的任务添加到等待队列中。
 - DiscardPolicy,当任务添加到线程池中被拒绝时，线程池将丢弃被拒绝的任务。
@@ -198,7 +198,7 @@ public void shutdown() {
 ### Callable && Future
 Callable用于产生结果，Future用于获取结果。
 #### Callable
-Callable 是一个接口，它只包含一个call()方法。Callable是一个返回结果并且可能抛出异常的任务。
+Callable是一个接口，它只包含一个call()方法。Callable是一个返回结果并且可能抛出异常的任务。
 为了便于理解，我们可以将Callable比作一个Runnable接口，而Callable的call()方法则类似于Runnable的run()方法。
 ```java
 public interface Callable<V> {
@@ -208,16 +208,16 @@ public interface Callable<V> {
 Callable支持泛型
 #### Future
 
-Future 是一个接口。它用于表示异步计算的结果。提供了检查计算是否完成的方法，以等待计算的完成，并获取计算的结果。
+Future是一个接口。它用于表示异步计算的结果。提供了检查计算是否完成的方法，以等待计算的完成，并获取计算的结果。
 ```java
 public interface Future<V> {
     // 试图取消对此任务的执行。
     boolean     cancel(boolean mayInterruptIfRunning)
 
-    // 如果在任务正常完成前将其取消，则返回 true。
+    // 如果在任务正常完成前将其取消，则返回true。
     boolean isCancelled()
 
-    // 如果任务已完成，则返回 true。
+    // 如果任务已完成，则返回true。
     boolean isDone()
 
     // 如有必要，等待计算完成，然后获取其结果。

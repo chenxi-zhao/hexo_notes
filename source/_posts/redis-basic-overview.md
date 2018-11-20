@@ -50,10 +50,10 @@ string类型是Redis最基本的数据类型，一个键最大能存储512MB。
 
 
 #### Hash（哈希）
-Redis hash 是一个键值对集合。
+Redis hash是一个键值对集合。
 Redis hash是一个string类型的field和value的映射表，hash特别适合用于存储对象。
->hash-max-zipmap-entries 64 #配置字段最多64 个
-hash-max-zipmap-value 512 #配置value 最大为512 字节
+>hash-max-zipmap-entries 64 #配置字段最多64个
+hash-max-zipmap-value 512 #配置value最大为512字节
 
 | 命令 | 示例 | 解释 |
 | --- | --- | --- |
@@ -73,9 +73,9 @@ hash-max-zipmap-value 512 #配置value 最大为512 字节
 | hscan | - | - |
 
 #### lists（链表）
-list 是一个链表结构，主要功能是push、pop、获取一个范围的所有值等等，操作中key理解为链表的名字。
+list是一个链表结构，主要功能是push、pop、获取一个范围的所有值等等，操作中key理解为链表的名字。
 
-Redis的list类型其实就是一个每个子元素都是string 类型的双向链表。链表的最大长度是(2的32次方)。我们可以通过push,pop 操作从链表的头部或者尾部添加删除元素。这使得list既可以用作栈，也可以用作队列。
+Redis的list类型其实就是一个每个子元素都是string类型的双向链表。链表的最大长度是(2的32次方)。我们可以通过push,pop操作从链表的头部或者尾部添加删除元素。这使得list既可以用作栈，也可以用作队列。
 
 | 命令 | 示例 | 解释 |
 | --- | --- | --- |
@@ -159,7 +159,7 @@ sorted set是set的一个升级版本，它在set的基础上增加了一个顺�
 | PEXPIRE key milliseconds  | 设置key的过期时间亿以毫秒计。 |
 | PEXPIREAT key milliseconds-timestamp  | 设置key过期时间的时间戳(unix timestamp) 以毫秒计 |
 | KEYS pattern  | 查找所有符合给定模式(pattern)的key。 |
-| MOVE key db  | 将当前数据库的key移动到给定的数据库 db 当中。
+| MOVE key db  | 将当前数据库的key移动到给定的数据库db当中。
 | PERSIST key  | 移除key的过期时间，key将持久保持。
 | PTTL key  | 以毫秒为单位返回key的剩余的过期时间。 |
 | TTL key  | 以秒为单位，返回给定key的剩余生存时间(TTL,time to live)。 |
@@ -199,7 +199,7 @@ redis 127.0.0.1:6379> PUBLISH redisChat "Learn redis by w3cschool.cc"
 | discard | 取消事务，放弃执行事务块内的所有命令。 |
 | exec | 执行所有事务块内的命令。 |
 | multi | 标记一个事务块的开始。 |
-| unwatch | 取消 watch 命令对所有 key 的监视。 |
+| unwatch | 取消watch命令对所有key的监视。 |
 | watch key [key ...] | 监视一个(或多个)key，如果在事务执行前这些key被其他命令改动，那么事务将被打断。 |
 
 ```
@@ -216,19 +216,19 @@ redis 127.0.0.1:6379> exec (执行)/ discard（取消）
 #### 持久化
 ##### Snapshotting
 快照是默认的持久化方式。这种方式是就是将内存中数据以快照的方式写入到二进制文件中,默认的文件名为dump.rdb。可以通过配置设置自动做快照持久化的方式。我们可以配置redis在n秒内如果超过m个key被修改就自动做快照，下面是默认的快照保存配置：
->save 900 1 #900 秒内如果超过1 个key 被修改，则发起快照保存
-save 300 10 #300 秒内容如超过10 个key 被修改，则发起快照保存
+>save 900 1 #900秒内如果超过1个key被修改，则发起快照保存
+save 300 10 #300秒内容如超过10个key被修改，则发起快照保存
 save 60 10000
 
 ##### AOF(Append-Only file)
-在使用aof 持久化方式时,redis会将每一个收到的写命令都通过write 函数追加到文件中(默认是appendonly.aof)。当redis重启时会通过重新执行文件中保存的写命令来在内存中重建整个数据库的内容。当然由于os会在内核中缓存write做的修改，所以可能不是立即写到磁盘上。这样aof方式的持久化也还是有可能会丢失部分修改。不过我们可以通过配置文件告诉redis我们想要通过fsync函数强制os写入到磁盘的时机。有三种方式如下（默认是：每秒fsync一次）
+在使用aof持久化方式时,redis会将每一个收到的写命令都通过write函数追加到文件中(默认是appendonly.aof)。当redis重启时会通过重新执行文件中保存的写命令来在内存中重建整个数据库的内容。当然由于os会在内核中缓存write做的修改，所以可能不是立即写到磁盘上。这样aof方式的持久化也还是有可能会丢失部分修改。不过我们可以通过配置文件告诉redis我们想要通过fsync函数强制os写入到磁盘的时机。有三种方式如下（默认是：每秒fsync一次）
 ```
-appendonly yes //启用aof 持久化方式
+appendonly yes //启用aof持久化方式
 # appendfsync always //收到写命令就立即写入磁盘，最慢，但是保证完全的持久化
 appendfsync everysec //每秒钟写入磁盘一次，在性能和持久化方面做了很好的折中
 # appendfsync no //完全依赖os，性能最好,持久化没保证
 ```
-aof的方式也同时带来了另一个问题，持久化文件会变的越来越大。为了压缩aof的持久化文件，redis提供了bgrewriteaof命令。收到此命令redis 将使用与快照类似的方式将内存中的数据以命令的方式保存到临时文件中，最后替换原来的文件。
+aof的方式也同时带来了另一个问题，持久化文件会变的越来越大。为了压缩aof的持久化文件，redis提供了bgrewriteaof命令。收到此命令redis将使用与快照类似的方式将内存中的数据以命令的方式保存到临时文件中，最后替换原来的文件。
 
 #### Pipeline管道技术
 打包redis-cli到redis-server的tcp请求，交给server处理，然后合并处理结果到同一个tcp报文中，以此提高执行效率。
@@ -237,17 +237,17 @@ aof的方式也同时带来了另一个问题，持久化文件会变的越来�
 public class TestPipeline {
     public static void main(String[] args) {
         long start = System.currentTimeMillis();
-        //采用pipeline 方式发送指令
+        //采用pipeline方式发送指令
         usePipeline();
         long end = System.currentTimeMillis();
-        System.out.println("用pipeline 方式耗时：" + (end - start) + "毫秒");
+        System.out.println("用pipeline方式耗时：" + (end - start) + "毫秒");
         start = System.currentTimeMillis();
         //普通方式发送指令
         withoutPipeline();
         end = System.currentTimeMillis();
         System.out.println("普通方式耗时：" + (end - start) + "毫秒");
     }
-    //采用pipeline 方式发送指令
+    //采用pipeline方式发送指令
     private static void usePipeline() {
         try {
             ConnectionSpec spec = DefaultConnectionSpec.newSpec(
@@ -275,12 +275,12 @@ public class TestPipeline {
 ```
 
 #### 虚拟内存技术
-vm-enabled yes #开启vm 功能
-vm-swap-file /tmp/redis.swap #交换出来的value 保存的文件路径
-vm-max-memory 1000000 #redis 使用的最大内存上限
-vm-page-size 32 #每个页面的大小32 个字节
+vm-enabled yes #开启vm功能
+vm-swap-file /tmp/redis.swap #交换出来的value保存的文件路径
+vm-max-memory 1000000 #redis使用的最大内存上限
+vm-page-size 32 #每个页面的大小32个字节
 vm-pages 134217728 #最多使用多少页面
-vm-max-threads 4 #用于执行value 对象换入换出的工作线程数量
+vm-max-threads 4 #用于执行value对象换入换出的工作线程数量
 
 #### 主从复制
 ##### redis主从复制特点:
@@ -292,7 +292,7 @@ vm-max-threads 4 #用于执行value 对象换入换出的工作线程数量
 ##### redis主从复制过程:
 当配置好slave后，slave与master建立连接，然后发送sync命令。无论是第一次连接还是重新连接，master都会启动一个后台进程，将数据库快照保存到文件中，同时master主进程会开始收集新的写命令并缓存。后台进程完成写文件后，master就发送文件给slave，slave将文件保存到硬盘上，再加载到内存中，接着master就会把缓存的命令转发给slave，后续master将收到的写命令发送给slave。如果master同时收到多个slave发来的同步连接命令，master只会启动一个进程来写数据库镜像，然后发送给所有的slave。
 ```
-slaveof 192.168.1.1 6379 #指定master 的ip 和端口
+slaveof 192.168.1.1 6379 #指定master的ip和端口
 ```
 
 

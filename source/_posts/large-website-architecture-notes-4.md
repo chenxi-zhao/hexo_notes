@@ -80,7 +80,7 @@ tags: [架构,笔记]
 目前比较成熟的支持数据分片和分布式关系型数据库产品主要有Cobar和Amoeba。
 [阿里开源分布式数据库中间件Cobar](http://hualong.iteye.com/blog/2102798)
 [基于阿里开源的Cobar的数据库分库分表中间件](http://www.mycat.org.cn/)
-[MySQL Cluster 与 MongoDB 复制群集分片设计及原理](http://blog.jobbole.com/32815/)
+[MySQL Cluster与MongoDB复制群集分片设计及原理](http://blog.jobbole.com/32815/)
 [数据库水平切分的实现原理解析](http://www.cnblogs.com/zhongxinWang/p/4262650.html)
 
 #### NoSQL数据库伸缩性

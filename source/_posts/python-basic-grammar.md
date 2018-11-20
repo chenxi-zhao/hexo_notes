@@ -8,13 +8,13 @@ tags: [python, grammar, 基础语法]
 
 #### Python是一个高层次的结合了解释性、编译性、互动性和面向对象的脚本语言。
 
-- Python 是一种解释型语言： 这意味着开发过程中没有了编译这个环节。类似于PHP和Perl语言。
+- Python是一种解释型语言： 这意味着开发过程中没有了编译这个环节。类似于PHP和Perl语言。
 
-- Python 是交互式语言： 这意味着，您可以在一个Python提示符，直接互动执行写你的程序。
+- Python是交互式语言： 这意味着，您可以在一个Python提示符，直接互动执行写你的程序。
 
-- Python 是面向对象语言: 这意味着Python支持面向对象的风格或代码封装在对象的编程技术。
+- Python是面向对象语言: 这意味着Python支持面向对象的风格或代码封装在对象的编程技术。
 
-- Python是初学者的语言：Python 对初级程序员而言，是一种伟大的语言，它支持广泛的应用程序开发，从简单的文字处理到 WWW 浏览器再到游戏。
+- Python是初学者的语言：Python对初级程序员而言，是一种伟大的语言，它支持广泛的应用程序开发，从简单的文字处理到WWW浏览器再到游戏。
 
 <!-- more -->
 
@@ -102,7 +102,7 @@ print list + tinylist # 打印组合的列表
 
 **Python字典(dictionary)**是Python中除了List以外最灵活的内置数据结构，列表是有序的对象集合，字典是无序对象集合。
 
-字典使用{}作为标识，字典类似于Java中的map 使用key、value存取。
+字典使用{}作为标识，字典类似于Java中的map使用key、value存取。
 
 ```Python
 #coding=utf-8
@@ -116,7 +116,7 @@ tinydict = {'name': 'john','code':6734, 'dept': 'sales'}
 
 
 print dict['one'] # 输出键为'one' 的值
-print dict[2] # 输出键为 2 的值
+print dict[2] # 输出键为2的值
 print tinydict # 输出完整的字典
 print tinydict.keys() # 输出所有键
 print tinydict.values() # 输出所有值
@@ -128,13 +128,13 @@ int(x [,base])   将x转换为一个整数
 long(x [,base])  将x转换为一个长整数
 float(x)  将x转换到一个浮点数
 complex(real [,imag])创建一个复数
-str(x)    将对象 x 转换为字符串
-repr(x)   将对象 x 转换为表达式字符串
+str(x)    将对象x转换为字符串
+repr(x)   将对象x转换为表达式字符串
 eval(str) 用来计算在字符串中的有效Python表达式,并返回一个对象
-tuple(s)  将序列 s 转换为一个元组
-list(s)   将序列 s 转换为一个列表
+tuple(s)  将序列s转换为一个元组
+list(s)   将序列s转换为一个列表
 set(s)    转换为可变集合
-dict(d)   创建一个字典。d 必须是一个序列 (key,value)元组。
+dict(d)   创建一个字典。d必须是一个序列 (key,value)元组。
 frozenset(s)转换为不可变集合
 chr(x)    将一个整数转换为一个字符
 unichr(x) 将一个整数转换为Unicode字符

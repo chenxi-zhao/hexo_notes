@@ -14,26 +14,26 @@ JUC包中的锁，包括：Lock接口，ReadWriteLock接口，LockSupport阻塞�
 先看看锁的框架图，如下所示。
 ![](https://static.tmaczhao.cn/images/5eff15dd9676dc6ddffbf6ed3fa972c5.jpg)
 #### Lock接口
->JUC包中的 Lock 接口支持那些语义不同(重入、公平等)的锁规则。
+>JUC包中的Lock接口支持那些语义不同(重入、公平等)的锁规则。
 所谓语义不同，是指锁可是有"公平机制的锁"、"非公平机制的锁"、"可重入的锁"等等。
 "公平机制"是指"不同线程获取锁的机制是公平的"，
 而"非公平机制"则是指"不同线程获取锁的机制是非公平的"，"可重入的锁"是指同一个锁能够被一个线程多次获取。
 
 #### ReadWriteLock
->接口以和Lock类似的方式定义了一些读取者可以共享而写入者独占的锁。JUC包只有一个类实现了该接口，即 ReentrantReadWriteLock，因为它适用于大部分的标准用法上下文。但程序员可以创建自己的、适用于非标准要求的实现。
+>接口以和Lock类似的方式定义了一些读取者可以共享而写入者独占的锁。JUC包只有一个类实现了该接口，即ReentrantReadWriteLock，因为它适用于大部分的标准用法上下文。但程序员可以创建自己的、适用于非标准要求的实现。
 
 #### AbstractOwnableSynchronizer/AbstractQueuedSynchronizer/AbstractQueuedLongSynchronizer
 >AbstractQueuedSynchronizer就是被称之为AQS的类，它是一个非常有用的超类，可用来定义锁以及依赖于排队阻塞线程的其他同步器；
 ReentrantLock，ReentrantReadWriteLock，CountDownLatch，CyclicBarrier和Semaphore等这些类都是基于AQS类实现的。
-AbstractQueuedLongSynchronizer类提供相同的功能但扩展了对同步状态的64位的支持。两者都扩展了类 AbstractOwnableSynchronizer（一个帮助记录当前保持独占同步的线程的简单类）。
+AbstractQueuedLongSynchronizer类提供相同的功能但扩展了对同步状态的64位的支持。两者都扩展了类AbstractOwnableSynchronizer（一个帮助记录当前保持独占同步的线程的简单类）。
 
 #### LockSupport
 >LockSupport提供“创建锁”和“其他同步类的基本线程阻塞原语”。
->LockSupport的功能和"Thread中的Thread.suspend()和Thread.resume()有点类似"，LockSupport中的park() 和 unpark() 的作用分别是阻塞线程和解除阻塞线程。但是park()和unpark()不会遇到“Thread.suspend 和 Thread.resume所可能引发的死锁”问题。
+>LockSupport的功能和"Thread中的Thread.suspend()和Thread.resume()有点类似"，LockSupport中的park() 和unpark() 的作用分别是阻塞线程和解除阻塞线程。但是park()和unpark()不会遇到“Thread.suspend和Thread.resume所可能引发的死锁”问题。
 
 #### Condition
 >Condition需要和Lock联合使用，它的作用是代替Object监视器方法，可以通过await(),signal()来休眠/唤醒线程。
-Condition 接口描述了可能会与锁有关联的条件变量。这些变量在用法上与使用 Object.wait 访问的隐式监视器类似，但提供了更强大的功能。
+Condition接口描述了可能会与锁有关联的条件变量。这些变量在用法上与使用Object.wait访问的隐式监视器类似，但提供了更强大的功能。
 需要特别指出的是，单个Lock可能与多个Condition对象关联。为了避免兼容性问题，Condition方法的名称与对应的Object版本中的不同。
 
 #### ReentrantLock
@@ -50,7 +50,7 @@ ReadLock是共享锁，而WriteLock是独占锁。
 >CountDownLatch是一个同步辅助类，在完成一组正在其他线程中执行的操作之前，它允许一个或多个线程一直等待。
 
 #### CyclicBarrier
->CyclicBarrier是一个同步辅助类，允许一组线程互相等待，直到到达某个公共屏障点 (common barrier point)。因为该 barrier 在释放等待线程后可以重用，所以称它为循环的barrier。
+>CyclicBarrier是一个同步辅助类，允许一组线程互相等待，直到到达某个公共屏障点 (common barrier point)。因为该barrier在释放等待线程后可以重用，所以称它为循环的barrier。
 
 <font color="red">CyclicBarrier和CountDownLatch的区别是：</font>
 1. CountDownLatch的作用是允许1或N个线程等待其他线程完成执行；而CyclicBarrier则是允许N个线程相互等待。
@@ -71,7 +71,7 @@ ReadLock是共享锁，而WriteLock是独占锁。
 
 #### CLH队列 -- Craig, Landin, and Hagersten lock queue
 >CLH队列是AQS中“等待锁”的线程队列。在多线程中，为了保护竞争资源不被多个线程同时操作而起来错误，我们常常需要通过锁来保护这些资源。在独占锁中，竞争资源在一个时间点只能被一个线程锁访问；而其它线程则需要等待。CLH就是管理这些“等待锁”的线程的队列。
->CLH是一个非阻塞的 FIFO 队列。也就是说往里面插入或移除一个节点的时候，在并发条件下不会阻塞，而是通过自旋锁和 CAS 保证节点插入和移除的原子性。
+>CLH是一个非阻塞的FIFO队列。也就是说往里面插入或移除一个节点的时候，在并发条件下不会阻塞，而是通过自旋锁和CAS保证节点插入和移除的原子性。
 
 #### CAS函数 -- Compare And Swap
 >CAS函数，是比较并交换函数，是原子操作函数；即，通过CAS操作的数据都是以原子方式进行的。例如，compareAndSetHead(),compareAndSetTail(),等函数。它们共同的特点是，这些函数所执行的动作是以原子的方式进行的。
@@ -114,7 +114,7 @@ CAS操作需要硬件的配合；
 
 #### Ticket Lock
 
-Ticket Lock 是为了解决上面的公平性问题，类似于现实中银行柜台的排队叫号：锁拥有一个服务号，表示正在服务的线程，还有一个排队号；每个线程尝试获取锁之前先拿一个排队号，然后不断轮询锁的当前服务号是否是自己的排队号，如果是，则表示自己拥有了锁，不是则继续轮询。
+Ticket Lock是为了解决上面的公平性问题，类似于现实中银行柜台的排队叫号：锁拥有一个服务号，表示正在服务的线程，还有一个排队号；每个线程尝试获取锁之前先拿一个排队号，然后不断轮询锁的当前服务号是否是自己的排队号，如果是，则表示自己拥有了锁，不是则继续轮询。
 
 当线程释放锁时，将服务号加1，这样下一个线程看到这个变化，就退出自旋。
 
@@ -145,16 +145,16 @@ public class TicketLock {
 }
 ```
 **`缺点`**
-Ticket Lock 虽然解决了公平性的问题，但是多处理器系统上，每个进程/线程占用的处理器都在读写同一个变量serviceNum ，每次读写操作都必须在多个处理器缓存之间进行缓存同步，这会导致繁重的系统总线和内存的流量，大大降低系统整体的性能。
+Ticket Lock虽然解决了公平性的问题，但是多处理器系统上，每个进程/线程占用的处理器都在读写同一个变量serviceNum ，每次读写操作都必须在多个处理器缓存之间进行缓存同步，这会导致繁重的系统总线和内存的流量，大大降低系统整体的性能。
 
 下面介绍的CLH锁和MCS锁都是为了解决这个问题的。
 
-MCS 来自于其发明人名字的首字母： John Mellor-Crummey和Michael Scott。
+MCS来自于其发明人名字的首字母： John Mellor-Crummey和Michael Scott。
 
 CLH的发明人是：Craig，Landin and Hagersten。
 
 #### MCS锁
-MCS Spinlock 是一种基于链表的可扩展、高性能、公平的自旋锁，申请线程只在本地变量上自旋，直接前驱负责通知其结束自旋，从而极大地减少了不必要的处理器缓存同步的次数，降低了总线和内存的开销。
+MCS Spinlock是一种基于链表的可扩展、高性能、公平的自旋锁，申请线程只在本地变量上自旋，直接前驱负责通知其结束自旋，从而极大地减少了不必要的处理器缓存同步的次数，降低了总线和内存的开销。
 ```java
 public class MCSLock {
     public static class MCSNode {
@@ -230,7 +230,7 @@ public class CLHLock {
     }
 }
 ```
-CLH锁 与 MCS锁 的比较
+CLH锁与 MCS锁的比较
 
 下图是CLH锁和MCS锁队列图示：
 ![](https://static.tmaczhao.cn/images/java_multi_thread/CLH-MCS-SpinLock.png)
