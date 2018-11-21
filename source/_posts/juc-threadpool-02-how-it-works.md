@@ -6,7 +6,7 @@ tags: [java, 多线程, 线程池]
 ---
 ### ThreadPoolExecutor
 
-ThreadPoolExecutor是线程池类。对于线程池，可以通俗的将它理解为"存放一定数量线程的一个线程集合。线程池允许若个线程同时允许，允许同时运行的线程数量就是线程池的容量；当添加的到线程池中的线程超过它的容量时，会有一部分线程阻塞等待。线程池会通过相应的调度策略和拒绝策略，对添加到线程池中的线程进行管理.
+ThreadPoolExecutor是线程池类。对于线程池，可以通俗的将它理解为"存放一定数量线程的一个线程集合。线程池允许若个线程同时允许，允许同时运行的线程数量就是线程池的容量；当添加的到线程池中的线程超过它的容量时，会有一部分线程阻塞等待。线程池会通过相应的调度策略和拒绝策略，对添加到线程池中的线程进行管理。
 
 <!-- more -->
 
@@ -27,8 +27,8 @@ mainLock是互斥锁，通过mainLock实现了对线程池的互斥访问。
 4. corePoolSize和maximumPoolSize
 corePoolSize是"核心池大小"，maximumPoolSize是"最大池大小"。它们的作用是调整"线程池中实际运行的线程的数量"。
 例如，当新任务提交给线程池时(通过execute方法)。
-    -- 如果此时，线程池中运行的线程数量< corePoolSize，则创建新线程来处理请求。
-    -- 如果此时，线程池中运行的线程数量> corePoolSize，但是却< mumPoolSize；则仅当阻塞队列满时才创建新线程。
+    -- 如果此时，线程池中运行的线程数量 < corePoolSize，则创建新线程来处理请求。
+    -- 如果此时，线程池中运行的线程数量 > corePoolSize，但是却< maximumPoolSize；则仅当阻塞队列满时才创建新线程。
 如果设置的corePoolSize和maximumPoolSize相同，则创建了固定大小的线程池。如果将maximumPoolSize设置为基本的无界值（如Integer.MAX_VALUE），则允许池适应任意数量的并发任务。在大多数情况下，核心池大小和最大池大小的值是在创建线程池设置的；但是，也可以使用setCorePoolSize(int) 和setMaximumPoolSize(int) 进行动态更改。
 
 5. poolSize

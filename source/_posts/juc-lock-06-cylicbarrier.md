@@ -153,6 +153,7 @@ private Generation generation = new Generation();
 private static class Generation {
     boolean broken = false;
 }
+```
 在CyclicBarrier中，同一批的线程属于同一代，即同一个Generation；CyclicBarrier中通过generation对象，记录属于哪一代。当有parties个线程到达barrier，generation就会被更新换代。
 
 2. 如果当前线程被中断，即Thread.interrupted()为true；则通过breakBarrier()终止CyclicBarrier。

@@ -18,8 +18,8 @@ CountDownLatch和CyclicBarrier的区别
 
 ### CountDownLatch函数列表
 ```java
+//构造一个用给定计数初始化的CountDownLatch。
 CountDownLatch(int count)
-构造一个用给定计数初始化的CountDownLatch。
 // 使当前线程在锁存器倒计数至零之前一直等待，除非线程被中断。
 void await()
 // 使当前线程在锁存器倒计数至零之前一直等待，除非线程被中断或超出了指定的等待时间。

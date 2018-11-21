@@ -65,7 +65,7 @@ PS. a,b,c三个人，正向代理是a通过b向C借钱，a知道c的存在 。�
 
 ### 存储性能优化
 - 机械硬盘or固态硬盘
-- 关系型数据库or NoSQL
+- 关系型数据库 or NoSQL
 - RAID or HDFS
 - ...
 
