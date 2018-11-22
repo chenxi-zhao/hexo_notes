@@ -1,11 +1,19 @@
+---
+title: Disruptor高性能无锁消息队列源码阅读
+date: 2018-11-22 15:40:39
+tags: [disruptor, 消息队列, 高性能, 并发]
+categories: java
+---
+
 ### disruptor 结构
 ![disruptor](https://static.tmaczhao.cn/notes/disruptor/20181122143846.jpg)
 
+<!-- more -->
 
 ### 伪共享
 ![false sharing](http://static.tmaczhao.cn/images/180314/EKBHhjh9ic.png)
 
-**`value值始终独占一个缓存行，极限条件下为第一个或者最后一个元素，防止更新其他值时重刷导致性能下降`**
+`value值始终独占一个缓存行，极限条件下为第一个或者最后一个元素，防止更新其他值时重刷导致性能下降`
 
 ![false sharing](https://static.tmaczhao.cn/notes/disruptor/2018112214396.jpg)
 
