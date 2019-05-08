@@ -49,7 +49,7 @@ newSingleThreadScheduledExecutor：创建一个单线程的线程池。此线程
 
 ### 线程池生命周期
 #### 线程池的四种状态
-![](https://images.cnitblog.com/blog/497634/201401/08000847-0a9caed4d6914485b2f56048c668251a.jpg)
+![](https://static.tmaczhao.cn/notes/20190508112135.png)
 
 1. RUNNING
 - 状态说明：线程池处在RUNNING状态时，能够接收新任务，以及对已添加的任务进行处理。

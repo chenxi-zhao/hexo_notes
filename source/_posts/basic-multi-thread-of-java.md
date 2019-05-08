@@ -7,12 +7,16 @@ tags: [java, 多线程]
 ### 什么是多线程
 
 线程状态图
-![](https://images.cnitblog.com/blog/288799/201409/061046391107893.jpg)
+
+![](https://static.tmaczhao.cn/notes/20190508111817.png)
+
+
 
 <!-- more -->
 
 说明：
 线程共包括以下5种状态。
+
 1. **新建状态(New)**: 线程对象被创建后，就进入了新建状态。例如，Thread thread = new Thread()。
 2. **就绪状态(Runnable)**: 也被称为“可执行状态”。线程对象被创建后，其它线程调用了该对象的start()方法，从而来启动该线程。例如，thread.start()。处于就绪状态的线程，随时可能被CPU调度执行。
 3. **运行状态(Running)**: 线程获取CPU权限进行执行。需要注意的是，线程只能从就绪状态进入到运行状态。

@@ -5,7 +5,7 @@ categories: operating_system
 tags: [operating_system, 操作系统]
 ---
 ###  进程状态转换
-![](https://zezhi.qiniudn.com/wp-content/uploads/2014/06/1.jpeg)
+![](http://zezhi.qiniudn.com/wp-content/uploads/2014/06/1.jpeg)
 就绪等待CPU资源，阻塞等待CPU之外的资源，如I/O
 
 ###  进程和线程
@@ -29,8 +29,9 @@ tags: [operating_system, 操作系统]
 信号量–同一时刻允许多线程访问访问， 但限制最大数目，其他线程等待
 事件–通知操作保持同步，方便多线程的优先级比较
 
+
 ###  线程实现方式
-> 用户线程（User-Level Thread）和内核线程（Kernel-Level Thread，轻量级进程）
+>用户线程（User-Level Thread）和内核线程（Kernel-Level Thread，轻量级进程）
 
 1） 用户线程是不需要内核支持在用户程序中实现的线程，应用进程利用线程库提供创建、同步、调度和管理线程的函数来控制用户线程。速度快，不需要用户态/核心态切换。处理器时间片以进程为单位分配，线程时间相对减少。
 2）内核线程：由操作系统内核创建和撤销。内核维护进程及线程的上下文信息以及线程切换。一个内核线程由于I/O操作而阻塞，不会影响其它线程的运行。
