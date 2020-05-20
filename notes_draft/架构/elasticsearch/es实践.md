@@ -44,7 +44,9 @@
  - https://www.ebayinc.com/stories/blogs/tech/elasticsearch-performance-tuning-practice-at-ebay/
 
 
+
 ### lucene原理
+
 #### Posting List
 假设有这么几条数据(为了简单，去掉about, interests这两个field):
 | ID | Name | Age | Sex    |
